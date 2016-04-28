@@ -15,7 +15,7 @@ app.get('/', function(request, response) {
 });
 */
 
-app.get('/webhook', function (req, res) {
+app.get('/webhook/', function (req, res) {
 	if (req.query['hub.verify_token'] === '1234') {
 		res.send(req.query['hub.challenge']);
 	} else {
@@ -23,7 +23,7 @@ app.get('/webhook', function (req, res) {
 	}
 });
 
-app.post('/webhook', function (req, res) {
+app.post('/webhook/', function (req, res) {
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
     event = req.body.entry[0].messaging[i];
