@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   response.render('pages/index');
 });
-/*
+
 app.get('/webhook', function (req, res) {
 	if (req.query['hub.verify_token'] === '1234') {
 		res.send(req.query['hub.challenge']);
@@ -20,7 +20,7 @@ app.get('/webhook', function (req, res) {
 		res.send('Error, wrong validation token');
 	}
 });
-*/
+
 app.post('/webhook', function (req, res) {
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
