@@ -32,7 +32,7 @@ app.get('/webhook/', function (req, res) {
 		res.send('Error, wrong validation token');
 	}
 });
-/*
+
 app.post('/webhook/', function (req, res) {
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
@@ -47,7 +47,7 @@ app.post('/webhook/', function (req, res) {
   res.sendStatus(200);
 });
 
-var token = "EAAW44q2oO0ABAGrD9Re8hRnRDjyG9ZAuXwZCOfR316urfRE5nZB2uPih2zk1UhWiWmZAlqQUGwXl3Nxi6KUNxUJcegIzdHKZCvlzw9LJ8KcOFOehRGkeiZCorRpG4Gwgs2nUrYUb7D1FaH2d1YKNMLpkhQryOLqgF9XOEW8ZC6b3wZDZD";
+var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
 
 function sendTextMessage(sender, text) {
   messageData = {
@@ -69,7 +69,7 @@ function sendTextMessage(sender, text) {
     }
   });
 };
-*/
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
