@@ -20,8 +20,8 @@ app.set('view engine', 'ejs');
 
 
 app.get('/', function(req, res) {
-  //response.render('pages/index');
-  res.send('hello world, I am a chat bot')
+  res.render('pages/index');
+  //res.send('hello world, I am a chat bot')
 });
 
 
