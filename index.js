@@ -19,7 +19,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 
-app.get('/', function(request, response) {
+app.get('/', function(req, res) {
   //response.render('pages/index');
   res.send('hello world, I am a chat bot')
 });
