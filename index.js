@@ -1,19 +1,28 @@
-var express = require('express');
-var app = express();
+var bodyParser = require('body-parser')
+var request = require('request')
+var express = require('express')
+var app = express()
 
 app.set('port', (process.env.PORT || 5000));
 
+// Process application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}))
+
+// Process application/json
+app.use(bodyParser.json())
+
+/*
 app.use(express.static(__dirname + '/public'));
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-
-/*
-app.get('/', function(request, response) {
-  response.render('pages/index');
-});
 */
+
+app.get('/', function(request, response) {
+  res.send('Hello world, I am a chat bot')
+});
+
 
 app.get('/webhook/', function (req, res) {
 	if (req.query['hub.verify_token'] === '1234') {
@@ -22,7 +31,7 @@ app.get('/webhook/', function (req, res) {
 		res.send('Error, wrong validation token');
 	}
 });
-
+/*
 app.post('/webhook/', function (req, res) {
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
@@ -59,7 +68,7 @@ function sendTextMessage(sender, text) {
     }
   });
 };
-
+*/
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
