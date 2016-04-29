@@ -33,6 +33,10 @@ app.get('/webhook/', function (req, res) {
 	}
 });
 
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
+
 app.post('/webhook/', function (req, res) {
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
@@ -70,8 +74,7 @@ function sendTextMessage(sender, text) {
   });
 };
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+
+
 
 
