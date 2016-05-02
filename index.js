@@ -81,7 +81,6 @@ var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsK
 
 
 function sendWelcomeMessage(text) {
-	console.log('Send Welcome Message')
   messageData = {
     text:text
   }
@@ -124,6 +123,8 @@ function sendTextMessage(sender, text) {
       console.log('Error sending message: ', error);
     } else if (response.body.error) {
       console.log('Error: ', response.body.error);
+    } else {
+    	console.log(response.body)
     }
   });
 };
