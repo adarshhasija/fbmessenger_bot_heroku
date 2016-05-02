@@ -73,7 +73,7 @@ function sendWelcomeMessage(sender, text) {
     method: 'POST',
     json: {
       setting_type: call_to_actions,
-      thread_state: new_thread;
+      thread_state: new_thread,
       call_to_actions: [
       	{
       		message: messageData
