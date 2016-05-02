@@ -90,6 +90,7 @@ function sendWelcomeMessage(sender, text) {
 };
 
 function sendTextMessage(sender, text) {
+	console.log('here')
   messageData = {
     text:text
   }
