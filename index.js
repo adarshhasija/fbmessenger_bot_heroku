@@ -39,8 +39,8 @@ app.listen(app.get('port'), function() {
 });
 
 app.post('/webhook/', function (req, res) {
-	res.send('Got you!')
-    messaging_events = req.body.entry[0].messaging
+	sendWelcomeMessage();
+  /*  messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
         sender = event.sender.id
@@ -57,7 +57,7 @@ app.post('/webhook/', function (req, res) {
             sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
             continue
         }
-    }	
+    }	*/
     res.sendStatus(200)
 })
 
@@ -67,7 +67,7 @@ var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsK
 
 function sendWelcomeMessage() {
   messageData = {
-    text:Welcome
+    text:"Welcome"
   }
   request({
     url: 'https://graph.facebook.com/v2.6/188138181333428/thread_settings',
