@@ -90,8 +90,8 @@ function sendWelcomeMessage(text) {
     qs: {access_token:token},
     method: 'POST',
     json: {
-      setting_type: call_to_actions,
-      thread_state: new_thread,
+      setting_type: "call_to_actions",
+      thread_state: "new_thread",
       call_to_actions: [
       	{
       		message: messageData
