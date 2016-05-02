@@ -62,6 +62,17 @@ app.post('/webhook/', function (req, res) {
 
 var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
 //var PAGE_ID = "188138181333428";
+var welcome = '{
+"setting_type":"call_to_actions",
+"thread_state":"new_thread",
+"call_to_actions":[
+     {
+      "message":{
+      "text":"Welcome to My BOT!"
+     }
+}
+]
+}';
 
 
 function sendWelcomeMessage() {
@@ -72,15 +83,7 @@ function sendWelcomeMessage() {
     url: 'https://graph.facebook.com/v2.6/188138181333428/thread_settings',
     qs: {access_token:token},
     method: 'POST',
-    json: {
-      setting_type: call_to_actions,
-      thread_state: new_thread,
-      call_to_actions: [
-      	{
-      		message: messageData
-      	}
-      ],
-    }
+    json: welcome,
   }, function(error, response, body) {
     if (error) {
       console.log('Error sending message: ', error);
