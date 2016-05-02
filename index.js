@@ -52,8 +52,7 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue
             }
-            //sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-            sendWelcomeMessage('ABCDEF')
+            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
@@ -82,6 +81,7 @@ var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsK
 
 
 function sendWelcomeMessage(text) {
+	console('Send Welcome Message')
   messageData = {
     text:text
   }
