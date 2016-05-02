@@ -40,6 +40,7 @@ app.listen(app.get('port'), function() {
 });
 
 app.post('/webhook/', function (req, res) {
+	console.log('Test 1')
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
