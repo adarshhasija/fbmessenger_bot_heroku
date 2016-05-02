@@ -81,7 +81,7 @@ var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsK
 
 
 function sendWelcomeMessage(text) {
-	console('Send Welcome Message')
+	console.log('Send Welcome Message')
   messageData = {
     text:text
   }
