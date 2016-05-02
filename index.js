@@ -63,6 +63,19 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 })
 
+app.on('messaging_optins', function(arg) {
+	console.log('messaging optins')
+})
+app.on('messages', function(arg) {
+	console.log('messages')
+})
+app.on('message_deliveries', function(arg) {
+	console.log('message deliveries')
+})
+app.on('messaging_postbacks', function(arg) {
+	console.log('messaging postbacks')
+})
+
 var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
 //var PAGE_ID = "188138181333428";
 
