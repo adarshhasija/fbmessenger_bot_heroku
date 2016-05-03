@@ -82,7 +82,7 @@ app.post('/webhook/', function (req, res) {
 
 function sendWelcomeMessage(text) {
   messageData = {
-    text: "Welcome to "+app_name" . Would you like to register as a volunteer? Please reply yes or no."
+    text: "Welcome to "+app_name+" . Would you like to register as a volunteer? Please reply yes or no."
   }
   request({
     url: 'https://graph.facebook.com/v2.6/'+PAGE_ID+'/thread_settings',
