@@ -24,6 +24,10 @@ app.get('/', function(req, res) {
   res.send('hello world, I am a chat bot')
 });
 
+var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
+var PAGE_ID = "188138181333428"; 
+var app_name = "Cila"
+
 
 app.get('/webhook/', function (req, res) {
 	console.log('GET')
@@ -42,13 +46,16 @@ app.listen(app.get('port'), function() {
 
 app.post('/webhook/', function (req, res) {
 	console.log('POST')
-	console.log(req.body.entry[0].messaging[0].delivery.seq)
+	console.log(req.body.entry[0].messaging[0])
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
+            if (text === '') { //Empty string, 
+
+            }
             if (text === 'Generic') {
                 sendGenericMessage(sender)
                 continue
@@ -63,10 +70,6 @@ app.post('/webhook/', function (req, res) {
     }	
     res.sendStatus(200)
 })
-
-var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
-var PAGE_ID = "188138181333428"; 
-var app_name = "Cila"
 
 
 function sendWelcomeMessage(text) {
