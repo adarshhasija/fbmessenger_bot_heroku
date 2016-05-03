@@ -46,7 +46,6 @@ app.listen(app.get('port'), function() {
 
 app.post('/webhook/', function (req, res) {
 	console.log('POST')
-	console.log(req.body.entry[0].messaging[0])
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
@@ -55,7 +54,10 @@ app.post('/webhook/', function (req, res) {
             text = event.message.text
             sticker_id = event.message.sticker_id
             attachments = event.message.attachments
-            if (text === null) { //Empty string, 
+            console.log(text)
+            console.log(sticker_id)
+            console.log(attachments)
+            if (!text) { //Empty string, 
             	sendTextMessage(sender, "YES")
             }
             if (text === 'Generic') {
