@@ -27,7 +27,7 @@ app.get('/', function(req, res) {
 var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
 var PAGE_ID = "188138181333428"; 
 var app_name = "Cila"
-var state = 'welcome';
+var state = 'new_user_start';
 
 
 app.get('/webhook/', function (req, res) {
@@ -55,8 +55,8 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue
             }
-            if (text === 'yes') {
-            	if (state == 'welcome') {
+            if (text.toLowerCase() === 'yes') {
+            	if (state == 'new_user_start') {
             		sendTextMessage(sender, 'Great! We will ask you a series of questions to understand your availability and '+
             					'preferences. Please reply yes or no for each. If you have doubts at any point, just message '+
             					'the word help. Shall we start?')
@@ -67,7 +67,7 @@ app.post('/webhook/', function (req, res) {
             }
             //sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
             sendTextMessage(sender, "Sorry, I did not understand your reponse. Please try again.");
-            state = 'welcome'
+            state = 'new_user_start'
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
