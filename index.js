@@ -42,7 +42,7 @@ app.listen(app.get('port'), function() {
 
 app.post('/webhook/', function (req, res) {
 	console.log('POST')
-	console.log(req.body.entry[0].messaging[0].seq)
+	console.log(req.body.entry[0].messaging[0].delivery.seq)
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
