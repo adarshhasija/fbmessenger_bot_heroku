@@ -47,13 +47,12 @@ app.listen(app.get('port'), function() {
 
 app.post('/webhook/', function (req, res) {
 	console.log('POST')
-	console.log(req.body.entry[0])
+	console.log(req.body.entry[0].messaging[0].sender)
+	console.log(req.body.entry[0].messaging[0].recipient)
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
         sender = event.sender.id
-        recipient = event.recipient.id
-        console.log(sender + ' ' + recipient)
         if (event.message && event.message.text) {
             text = event.message.text
             if (text === 'Generic') {
