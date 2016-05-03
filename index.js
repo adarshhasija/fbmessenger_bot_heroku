@@ -53,8 +53,10 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            if (text === '') { //Empty string, 
-
+            sticker_id = event.message.sticker_id
+            attachments = event.message.attachments
+            if (text === null) { //Empty string, 
+            	sendTextMessage(sender, "YES")
             }
             if (text === 'Generic') {
                 sendGenericMessage(sender)
