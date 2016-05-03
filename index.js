@@ -44,6 +44,10 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
+function resetState() {
+	state = 'new_user_start'
+}
+
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
@@ -55,7 +59,14 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue
             }
-            if (text.toLowerCase() === 'yes') {
+            text = text.toLowerCase()
+            if (text === 'help') {
+            	sendTextMessage(sender, 'What can we help you with? Message us your query and we will respond as soon as possible')
+            		state = 'help'
+            		continue
+            }
+
+            if (text === 'yes') {
             	if (state == 'new_user_start') {
             		sendTextMessage(sender, 'Great! We will ask you a series of questions to understand your availability and '+
             					'preferences. Please reply yes or no for each. If you have doubts at any point, just message '+
@@ -63,11 +74,77 @@ app.post('/webhook/', function (req, res) {
             		state = 'volunteer_questions_1'
             		continue
             	}
+            	if (state == 'volunteer_questions_1') {
+            		sendTextMessage(sender, 'Are you comfortable in English?')
+            		state = 'volunteer_questions_2'
+            		continue
+            	}
+            	if (state == 'volunteer_questions_2') {
+            		sendTextMessage(sender, 'You answered yes.\n If you would like to change your answer for any subject, just '+
+            						'message us the subject name. For example: To change your preference for English, just message '+
+            						'english. Shall we continue?')
+            		state = 'help_tips_1'
+            		continue
+            	}
+            	if (state == 'help_tips_1') {
+            		sendTextMessage(sender, 'You answered yes.\n Are you comfortable in Hindi')
+            		state = 'volunteer_questions_3'
+            		continue
+            	}
+            	if (state == 'volunteer_questions_3') {
+            		sendTextMessage(sender, 'You answered yes.\n Are you comfortable in Kannada?')
+            		state = 'volunteer_questions_4'
+            		continue
+            	}
+            	if (state == 'volunteer_questions_4') {
+            		sendTextMessage(sender, 'You answered yes.\n Can you volunteer on weekends?')
+            		state = 'new_user_start'
+            		continue
+            	}
             	
             }
-            //sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            if (text === 'no') {
+            	if (state == 'new_user_start') {
+            		sendTextMessage(sender, 'No problem. You can register with us anytime if your are interested. See you next time!')
+            		resetState()
+            		continue
+            	}
+            	if (state == 'volunteer_questions_1') {
+            		sendTextMessage(sender, 'Are you comfortable in English?')
+            		state = 'volunteer_questions_2'
+            		continue
+            	}
+            	if (state == 'volunteer_questions_2') {
+            		sendTextMessage(sender, 'You answered no.\n If you would like to change your answer for any subject, just '+
+            						'message us the subject name. For example: To change your preference for English, just message '+
+            						'english. Shall we continue?')
+            		state = 'help_tips_1'
+            		continue
+            	}
+            	if (state == 'help_tips_1') {
+            		sendTextMessage(sender, 'You answered no.\n Are you comfortable in Hindi')
+            		state = 'volunteer_questions_3'
+            		continue
+            	}
+            	if (state == 'volunteer_questions_3') {
+            		sendTextMessage(sender, 'You answered no.\n Are you comfortable in Kannada?')
+            		state = 'volunteer_questions_4'
+            		continue
+            	}
+            	if (state == 'volunteer_questions_4') {
+            		sendTextMessage(sender, 'You answered no.\n Can you volunteer on weekends?')
+            		state = 'new_user_start'
+            		continue
+            	}
+            }
+            
+            if (state == 'help') {
+            	sendTextMessage(sender, 'Thanks for your query. We will respond as quickly as possible')
+            		resetState()
+            		continue
+            }
+
             sendTextMessage(sender, "Sorry, I did not understand your reponse. Please try again.");
-            state = 'new_user_start'
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
