@@ -91,7 +91,7 @@ function sendWelcomeMessage(text) {
     } else if (response.body.error) {
       console.log('Error: ', response.body.error);
     } else {
-    	sendTextMessage("The next line")
+    	console.log(response.body)
     }
   });
 };
