@@ -50,13 +50,13 @@ app.post('/webhook/', function (req, res) {
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
         sender = event.sender.id
-        if (event.message && event.message.text) {
-            text = event.message.text
-            sticker_id = event.message.sticker_id
+        sticker_id = event.message.sticker_id
             attachments = event.message.attachments
             console.log(text)
             console.log(sticker_id)
             console.log(attachments)
+        if (event.message && event.message.text) {
+            text = event.message.text
             if (!text) { //Empty string, 
             	sendTextMessage(sender, "YES")
             }
