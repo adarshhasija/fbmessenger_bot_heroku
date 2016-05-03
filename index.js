@@ -58,8 +58,8 @@ app.post('/webhook/', function (req, res) {
             if (text === 'yes') {
             	if (state == 'welcome') {
             		sendTextMessage(sender, 'Great! We will ask you a series of questions to understand your availability and '+
-            					'preferences. Please reply yes or no for each. If you have doubts at any point, just message '
-            					' the word help. Shall we start?')
+            					'preferences. Please reply yes or no for each. If you have doubts at any point, just message '+
+            					'the word help. Shall we start?')
             		state = 'volunteer_questions_1'
             	continue
             	}
