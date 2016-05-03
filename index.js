@@ -27,6 +27,7 @@ app.get('/', function(req, res) {
 var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
 var PAGE_ID = "188138181333428"; 
 var app_name = "Cila"
+var state = '';
 
 
 app.get('/webhook/', function (req, res) {
@@ -51,6 +52,8 @@ app.post('/webhook/', function (req, res) {
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
         sender = event.sender.id
+        recipient = event.recipient.id
+        console.log(sender + ' ' + recipient)
         if (event.message && event.message.text) {
             text = event.message.text
             if (text === 'Generic') {
@@ -91,9 +94,7 @@ function sendWelcomeMessage(text) {
       console.log('Error sending message: ', error);
     } else if (response.body.error) {
       console.log('Error: ', response.body.error);
-    } else {
-    	sendTextMessage('IT WORKS')
-    }
+    } 
   });
 };
 
