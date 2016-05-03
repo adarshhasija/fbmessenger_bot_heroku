@@ -83,6 +83,9 @@ function sendWelcomeMessage(text) {
       call_to_actions: [
       	{
       		message: messageData
+      	},
+      	{
+      		message: messageData
       	}
       ],
     }
