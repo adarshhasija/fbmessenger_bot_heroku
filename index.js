@@ -53,7 +53,8 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue
             }
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            //sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            sendWelcomeMessage()
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
@@ -73,6 +74,9 @@ function sendWelcomeMessage(text) {
   messageData = {
     text: "Welcome to "+app_name
   }
+  messageData2 = {
+    text: "Welcome toooo "+app_name
+  }
   request({
     url: 'https://graph.facebook.com/v2.6/'+PAGE_ID+'/thread_settings',
     qs: {access_token:token},
@@ -85,7 +89,7 @@ function sendWelcomeMessage(text) {
       		message: messageData
       	},
       	{
-      		message: messageData
+      		message: messageData2
       	}
       ],
     }
