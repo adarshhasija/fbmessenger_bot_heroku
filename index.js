@@ -27,7 +27,7 @@ app.get('/', function(req, res) {
 var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
 var PAGE_ID = "188138181333428"; 
 var app_name = "Cila"
-var state = 'welcome_0';
+var state = 'welcome';
 
 
 app.get('/webhook/', function (req, res) {
@@ -55,26 +55,24 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue
             }
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            if (text.toLowerCase() === 'yes') {
+            	if (state == 'welcome') {
+            		sendTextMessage(sender, 'Great! We will ask you a series of questions to understand your availability and '+
+            					'preferences. Please reply yes or no for each. If you have doubts at any point, just message '
+            					' the word help. Shall we start?')
+            		state = 'volunteer_questions_1'
+            	continue
+            	}
+            	
+            }
+            //sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            sendTextMessage(sender, "Sorry, I did not understand your reponse. Please try again.");
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
             sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
             continue
         }
-      /*  if (state == 'welcome_0') {
-        	sendTextMessage(sender, 'We connect volunteers with the visually impaired community in Bangalore')
-        	state = 'welcome_1'
-        }
-        if (state == 'welcome_1') {
-        	sendTextMessage(sender, 'Volunteers can work as scribes as well as tutors. Scribes write exams for the students '+
-        							'while tutors read and teach different subjects')
-        	state = 'welcome_2'
-        }
-        if (state == 'welcome_2') {
-        	sendTextMessage(sender, 'Would you like to register as a volunteer? Please reply yes or no.')
-        	state = 'welcome_complete'
-        }	*/
     }	
     res.sendStatus(200)
 })
