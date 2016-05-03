@@ -42,7 +42,7 @@ app.listen(app.get('port'), function() {
 
 app.post('/webhook/', function (req, res) {
 	console.log('POST')
-	console.log(req.body.entry[0])
+	console.log(req.body.entry[0].messaging[0].seq)
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
@@ -73,9 +73,6 @@ function sendWelcomeMessage(text) {
   messageData = {
     text: "Welcome to "+app_name
   }
-  messageData2 = {
-    text: "Welcome toooo "+app_name
-  }
   request({
     url: 'https://graph.facebook.com/v2.6/'+PAGE_ID+'/thread_settings',
     qs: {access_token:token},
@@ -87,9 +84,6 @@ function sendWelcomeMessage(text) {
       	{
       		message: messageData
       	},
-      	{
-      		message: messageData2
-      	}
       ],
     }
   }, function(error, response, body) {
