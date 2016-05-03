@@ -62,7 +62,7 @@ app.post('/webhook/', function (req, res) {
             sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
             continue
         }
-        if (state == 'welcome_0') {
+      /*  if (state == 'welcome_0') {
         	sendTextMessage(sender, 'We connect volunteers with the visually impaired community in Bangalore')
         	state = 'welcome_1'
         }
@@ -74,7 +74,7 @@ app.post('/webhook/', function (req, res) {
         if (state == 'welcome_2') {
         	sendTextMessage(sender, 'Would you like to register as a volunteer? Please reply yes or no.')
         	state = 'welcome_complete'
-        }
+        }	*/
     }	
     res.sendStatus(200)
 })
@@ -82,7 +82,7 @@ app.post('/webhook/', function (req, res) {
 
 function sendWelcomeMessage(text) {
   messageData = {
-    text: "Welcome to "+app_name
+    text: "Welcome to "+app_name" . Would you like to register as a volunteer? Please reply yes or no."
   }
   request({
     url: 'https://graph.facebook.com/v2.6/'+PAGE_ID+'/thread_settings',
