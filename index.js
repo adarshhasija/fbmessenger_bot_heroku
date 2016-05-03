@@ -31,7 +31,6 @@ var state = '';
 
 
 app.get('/webhook/', function (req, res) {
-	console.log('GET')
 	if (req.query['hub.verify_token'] === '1234') {
 		res.send(req.query['hub.challenge']);
 		sendWelcomeMessage()
@@ -46,9 +45,6 @@ app.listen(app.get('port'), function() {
 });
 
 app.post('/webhook/', function (req, res) {
-	console.log('POST')
-	console.log(req.body.entry[0].messaging[0].sender)
-	console.log(req.body.entry[0].messaging[0].recipient)
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
@@ -65,6 +61,9 @@ app.post('/webhook/', function (req, res) {
             text = JSON.stringify(event.postback)
             sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
             continue
+        }
+        if (state == '') {
+        	sendTextMessage(sender, 'Next text')
         }
     }	
     res.sendStatus(200)
