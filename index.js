@@ -29,7 +29,7 @@ app.get('/webhook/', function (req, res) {
 	console.log('GET')
 	if (req.query['hub.verify_token'] === '1234') {
 		res.send(req.query['hub.challenge']);
-		sendWelcomeMessage("Welcome")
+		sendWelcomeMessage()
 	} else {
 		console.l
 		res.send('Error, wrong validation token');
@@ -64,29 +64,19 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 })
 
-app.on('messaging_optins', function(arg) {
-	console.log('messaging optins')
-})
-app.on('messages', function(arg) {
-	console.log('messages')
-})
-app.on('message_deliveries', function(arg) {
-	console.log('message deliveries')
-})
-app.on('messaging_postbacks', function(arg) {
-	console.log('messaging postbacks')
-})
-
 var token = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
-//var PAGE_ID = "188138181333428";
+var PAGE_ID = "188138181333428"; //Cila
+var app_name = "Cila"
 
 
 function sendWelcomeMessage(text) {
   messageData = {
-    text:text
+    text: "Welcome to "+app_name+". We connect volunteers from the "+
+    		"Bangalore community with the visually impaired. Would you like to register as a volunteer? "+
+    		"Please reply yes or no"
   }
   request({
-    url: 'https://graph.facebook.com/v2.6/188138181333428/thread_settings',
+    url: 'https://graph.facebook.com/v2.6/'+PAGE_ID+'/thread_settings',
     qs: {access_token:token},
     method: 'POST',
     json: {
