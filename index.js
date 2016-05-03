@@ -55,7 +55,7 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue
             }
-            if (text.toLowerCase() === 'yes') {
+            if (text === 'yes') {
             	if (state == 'welcome') {
             		sendTextMessage(sender, 'Great! We will ask you a series of questions to understand your availability and '+
             					'preferences. Please reply yes or no for each. If you have doubts at any point, just message '
