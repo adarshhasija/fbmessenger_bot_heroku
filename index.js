@@ -94,7 +94,7 @@ app.post('/webhook/', function (req, res) {
             		continue
             	}
             	if (cur_state == 'help_tips_1') {
-            		sendTextMessage(sender, 'Great!\n Are you comfortable in Hindi')
+            		sendTextMessage(sender, 'Great!\n Are you comfortable in Hindi?')
             		cur_state = 'volunteer_questions_3'
             		continue
             	}
@@ -123,53 +123,53 @@ app.post('/webhook/', function (req, res) {
             	
             }
             if (text === 'no') {
-            	if (state == 'new_user_start') {
+            	if (cur_state == 'new_user_start') {
             		sendTextMessage(sender, 'No problem. You can register with us anytime if your are interested. See you next time!')
             		resetState()
             		continue
             	}
-            	if (state == 'volunteer_questions_1') {
+            	if (cur_state == 'volunteer_questions_1') {
             		sendTextMessage(sender, 'Are you comfortable in English?')
-            		state = 'volunteer_questions_2'
+            		cur_state = 'volunteer_questions_2'
             		continue
             	}
-            	if (state == 'volunteer_questions_2') {
+            	if (cur_state == 'volunteer_questions_2') {
             		sendTextMessage(sender, 'You answered no.\n If you would like to change your answer for any subject, just '+
             						'message us the subject name. For example: To change your preference for English, just message '+
             						'english. Shall we continue?')
-            		state = 'help_tips_1'
+            		cur_state = 'help_tips_1'
             		continue
             	}
-            	if (state == 'help_tips_1') {
-            		sendTextMessage(sender, 'Great!\n Are you comfortable in Hindi')
-            		state = 'volunteer_questions_3'
+            	if (cur_state == 'help_tips_1') {
+            		sendTextMessage(sender, 'Great!\n Are you comfortable in Hindi?')
+            		cur_state = 'volunteer_questions_3'
             		continue
             	}
-            	if (state == 'volunteer_questions_3') {
+            	if (cur_state == 'volunteer_questions_3') {
             		sendTextMessage(sender, 'You answered no.\n Are you comfortable in Kannada?')
-            		state = 'volunteer_questions_4'
+            		cur_state = 'volunteer_questions_4'
             		continue
             	}
-            	if (state == 'volunteer_questions_4') {
+            	if (cur_state == 'volunteer_questions_4') {
             		sendTextMessage(sender, 'You answered no.\n Can you volunteer on weekends?')
-            		state = 'volunteer_questions_5'
+            		cur_state = 'volunteer_questions_5'
             		continue
             	}
             	if (state == 'volunteer_questions_5') {
             		sendTextMessage(sender, 'You answered no.\n Can you volunteer on weekdays?')
-            		state = 'volunteer_questions_6'
+            		cur_state = 'volunteer_questions_6'
             		continue
             	}
-            	if (state == 'volunteer_questions_6') {
+            	if (cur_state == 'volunteer_questions_6') {
             		sendTextMessage(sender, 'You answered no.\n If you would like to change these preferences at any time, simply '+
             								'message weekday or weekend. For example: If you would like to change your weekend preference, '+
             								'simply message weekend')
-            		state = 'volunteer_questions_complete'
+            		cur_state = 'volunteer_questions_complete'
             		continue
             	}
             }
             
-            if (state == 'help') {
+            if (cur_state == 'help') {
             	sendTextMessage(sender, 'Thanks for your query. We will respond as quickly as possible')
             		resetState()
             		continue
