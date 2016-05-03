@@ -61,12 +61,13 @@ app.post('/webhook/', function (req, res) {
             					'preferences. Please reply yes or no for each. If you have doubts at any point, just message '+
             					'the word help. Shall we start?')
             		state = 'volunteer_questions_1'
-            	continue
+            		continue
             	}
             	
             }
             //sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
             sendTextMessage(sender, "Sorry, I did not understand your reponse. Please try again.");
+            state = 'welcome'
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
