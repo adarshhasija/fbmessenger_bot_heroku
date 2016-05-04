@@ -57,6 +57,7 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             text = event.message.text
             if (text === 'Generic') {
+            	getUserProfile()
                 //sendGenericMessage(sender)
                 continue
             }
@@ -153,8 +154,8 @@ function volunteerQuestions(response) {
 
 function getUserProfile() {
   request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
+    url: 'https://graph.facebook.com/v2.6/711338052302980',
+    qs: {fields: "first_name", access_token:token},
     method: 'GET',
   }, function(error, response, body) {
     if (error) {
@@ -211,9 +212,7 @@ function sendTextMessage(sender, text) {
       console.log('Error sending message: ', error);
     } else if (response.body.error) {
       console.log('Error: ', response.body.error);
-    } else {
-    	console.log(response.body);
-    }
+    } 
   });
 };
 
