@@ -50,6 +50,7 @@ function resetState() {
 
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
+    console.log(req.body.entry[0])
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
         sender = event.sender.id
@@ -66,12 +67,6 @@ app.post('/webhook/', function (req, res) {
             		continue
             }
 
-            //go back to a question
-            if (text == 'english') {
-            	sendTextMessage(sender, 'Are you comfortable in English?')
-            	continue
-            }
-
 
             if (text === 'yes') {
             	if (cur_state == 'new_user_start') {
@@ -82,44 +77,26 @@ app.post('/webhook/', function (req, res) {
             		continue
             	}
             	if (cur_state == 'volunteer_questions_1') {
-            		sendTextMessage(sender, 'Are you comfortable in English?')
+            		sendTextMessage(sender, 'Can you teach English?')
             		cur_state = 'volunteer_questions_2'
             		continue
             	}
             	if (cur_state == 'volunteer_questions_2') {
-            		sendTextMessage(sender, 'You answered yes.\n If you would like to change your answer for any subject, just '+
-            						'message us the subject name. For example: To change your preference for English, just message '+
-            						'english. Shall we continue?')
-            		cur_state = 'help_tips_1'
-            		continue
-            	}
-            	if (cur_state == 'help_tips_1') {
-            		sendTextMessage(sender, 'Great!\n Are you comfortable in Hindi?')
+            		sendTextMessage(sender, 'You answered yes.\n Can you teach Hindi?')
             		cur_state = 'volunteer_questions_3'
             		continue
             	}
             	if (cur_state == 'volunteer_questions_3') {
-            		sendTextMessage(sender, 'You answered yes.\n Are you comfortable in Kannada?')
+            		sendTextMessage(sender, 'You answered yes.\n Can you teach Kannada?')
             		cur_state = 'volunteer_questions_4'
             		continue
             	}
             	if (cur_state == 'volunteer_questions_4') {
-            		sendTextMessage(sender, 'You answered yes.\n Can you volunteer on weekends?')
-            		cur_state = 'volunteer_questions_5'
-            		continue
-            	}
-            	if (cur_state == 'volunteer_questions_5') {
-            		sendTextMessage(sender, 'You answered yes.\n Can you volunteer on weekdays?')
-            		cur_state = 'volunteer_questions_6'
-            		continue
-            	}
-            	if (cur_state == 'volunteer_questions_6') {
-            		sendTextMessage(sender, 'You answered yes.\n If you would like to change these preferences at any time, simply '+
-            								'message weekday or weekend. For example: If you would like to change your weekend preference, '+
-            								'simply message weekend')
+            		sendTextMessage(sender, 'You answered yes.')
             		cur_state = 'volunteer_questions_complete'
             		continue
             	}
+            	
             	
             }
             if (text === 'no') {
@@ -129,44 +106,26 @@ app.post('/webhook/', function (req, res) {
             		continue
             	}
             	if (cur_state == 'volunteer_questions_1') {
-            		sendTextMessage(sender, 'Are you comfortable in English?')
+            		sendTextMessage(sender, 'Can you teach English?')
             		cur_state = 'volunteer_questions_2'
             		continue
             	}
             	if (cur_state == 'volunteer_questions_2') {
-            		sendTextMessage(sender, 'You answered no.\n If you would like to change your answer for any subject, just '+
-            						'message us the subject name. For example: To change your preference for English, just message '+
-            						'english. Shall we continue?')
-            		cur_state = 'help_tips_1'
-            		continue
-            	}
-            	if (cur_state == 'help_tips_1') {
-            		sendTextMessage(sender, 'Great!\n Are you comfortable in Hindi?')
+            		sendTextMessage(sender, 'You answered no.\n Can you teach Hindi?')
             		cur_state = 'volunteer_questions_3'
             		continue
             	}
             	if (cur_state == 'volunteer_questions_3') {
-            		sendTextMessage(sender, 'You answered no.\n Are you comfortable in Kannada?')
+            		sendTextMessage(sender, 'You answered no.\n Can you teach Kannada?')
             		cur_state = 'volunteer_questions_4'
             		continue
             	}
             	if (cur_state == 'volunteer_questions_4') {
-            		sendTextMessage(sender, 'You answered no.\n Can you volunteer on weekends?')
-            		cur_state = 'volunteer_questions_5'
-            		continue
-            	}
-            	if (state == 'volunteer_questions_5') {
-            		sendTextMessage(sender, 'You answered no.\n Can you volunteer on weekdays?')
-            		cur_state = 'volunteer_questions_6'
-            		continue
-            	}
-            	if (cur_state == 'volunteer_questions_6') {
-            		sendTextMessage(sender, 'You answered no.\n If you would like to change these preferences at any time, simply '+
-            								'message weekday or weekend. For example: If you would like to change your weekend preference, '+
-            								'simply message weekend')
+            		sendTextMessage(sender, 'You answered no.')
             		cur_state = 'volunteer_questions_complete'
             		continue
             	}
+            	
             }
             
             if (cur_state == 'help') {
@@ -185,6 +144,28 @@ app.post('/webhook/', function (req, res) {
     }	
     res.sendStatus(200)
 })
+
+
+function volunteerQuestions(response) {
+
+}
+
+
+function getUserProfile() {
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'GET',
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending message: ', error);
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error);
+    } else {
+    	console.log(response.body);
+    }
+  });	
+}
 
 
 function sendWelcomeMessage(text) {
