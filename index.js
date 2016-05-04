@@ -155,7 +155,7 @@ function volunteerQuestions(response) {
 function getUserProfile() {
   request({
     url: 'https://graph.facebook.com/v2.6/711338052302980',
-    qs: {fields: {"first_name", "last_name"}, access_token:token},
+    qs: {fields: ["first_name", "last_name"], access_token:token},
     method: 'GET',
   }, function(error, response, body) {
     if (error) {
