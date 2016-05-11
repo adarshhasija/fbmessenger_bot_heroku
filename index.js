@@ -4,6 +4,8 @@ var express = require('express')
 var mongodb = require("mongodb")
 var ObjectID = mongodb.ObjectID;
 
+var CONTACTS_COLLECTION = "contacts";
+
 var app = express()
 
 app.set('port', (process.env.PORT || 5000));
@@ -16,6 +18,21 @@ app.use(bodyParser.json())
 
 
 app.use(express.static(__dirname + '/public'));
+
+
+// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
+var db;
+
+// Connect to the database before starting the application server.
+mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
+  if (err) {
+    console.log(err);
+    process.exit(1);
+  }
+
+  // Save database object from the callback for reuse.
+  db = database;
+  console.log("Database connection ready");
 
 // views is directory for all template files
 //app.set('views', __dirname + '/views');
