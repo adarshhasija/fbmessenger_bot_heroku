@@ -23,7 +23,6 @@ app.use(express.static(__dirname + '/public'));
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
 
-// Connect to the database before starting the application server.
 mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
     console.log(err);
@@ -33,6 +32,12 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   // Save database object from the callback for reuse.
   db = database;
   console.log("Database connection ready");
+
+  // Initialize the app.
+  var server = app.listen(app.get('port'), function() {
+  		console.log('Node app is running on port', app.get('port'));
+	});
+});
 
 // views is directory for all template files
 //app.set('views', __dirname + '/views');
