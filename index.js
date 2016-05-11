@@ -64,11 +64,11 @@ app.get('/webhook/', function (req, res) {
 		res.send('Error, wrong validation token');
 	}
 });
-
+/*
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-
+*/
 function resetState() {
 	cur_state = 'new_user_start'
 }
