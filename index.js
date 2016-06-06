@@ -2,7 +2,6 @@ var bodyParser = require('body-parser')
 var request = require('request')
 var express = require('express')
 var mongodb = require("mongodb")
-var firebase = require("firebase");
 var ObjectID = mongodb.ObjectID;
 
 var CONTACTS_COLLECTION = "contacts";
