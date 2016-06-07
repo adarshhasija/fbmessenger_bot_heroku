@@ -13,6 +13,11 @@ myFirebaseRef.set({
     zip: 94103
   }
 });
+
+myFirebaseRef.child("location/city").on("value", function(snapshot) {
+  alert(snapshot.val());  // Alerts "San Francisco"
+});
+
 var ObjectID = mongodb.ObjectID;
 
 var CONTACTS_COLLECTION = "contacts";
