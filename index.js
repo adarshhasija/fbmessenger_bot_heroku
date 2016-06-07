@@ -3,7 +3,6 @@ var request = require('request')
 var express = require('express')
 var mongodb = require("mongodb")
 var firebase = require("firebase")
-var myFirebaseRef = new Firebase("https://cila-1.firebaseio.com/");
 var ObjectID = mongodb.ObjectID;
 
 var CONTACTS_COLLECTION = "contacts";
