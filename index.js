@@ -15,7 +15,7 @@ myFirebaseRef.set({
 });
 
 myFirebaseRef.child("location/city").on("value", function(snapshot) {
-  //alert(snapshot.val());  // Alerts "San Francisco"
+  res.send(snapshot.val())  // Alerts "San Francisco"
 });
 
 var ObjectID = mongodb.ObjectID;
