@@ -4,6 +4,15 @@ var express = require('express')
 var mongodb = require("mongodb")
 var firebase = require("firebase")
 var myFirebaseRef = new Firebase("https://cila-1.firebaseio.com/")
+myFirebaseRef.set({
+  title: "Hello World!",
+  author: "Firebase",
+  location: {
+    city: "San Francisco",
+    state: "California",
+    zip: 94103
+  }
+});
 var ObjectID = mongodb.ObjectID;
 
 var CONTACTS_COLLECTION = "contacts";
