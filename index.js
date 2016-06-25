@@ -270,7 +270,7 @@ function sendTextMessage(sender, text) {
 
 
 function sendChooseSignWordMessage() {
-    messageData = {
+  /*  messageData = {
         "attachment": {
             "type": "template",
             "payload": {
@@ -305,7 +305,7 @@ function sendChooseSignWordMessage() {
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
         }
-    })
+    })  */
 }
 
 
