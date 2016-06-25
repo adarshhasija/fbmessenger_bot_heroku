@@ -123,7 +123,7 @@ app.post('/webhook/', function (req, res) {
 
 
 function volunteerQuestions(response) {
-  /*  if (text === 'Generic') {
+    if (text === 'Generic') {
               //getUserProfile()
                 sendGenericMessage(sender)
                 continue
@@ -200,7 +200,7 @@ function volunteerQuestions(response) {
               sendTextMessage(sender, 'Thanks for your query. We will respond as quickly as possible')
                 resetState()
                 continue
-            } */
+            }
 }
 
 
