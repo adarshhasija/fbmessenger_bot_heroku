@@ -106,8 +106,8 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             text = event.message.text
             if (text === 'Generic') {
-            	getUserProfile()
-                //sendGenericMessage(sender)
+            	//getUserProfile()
+                sendGenericMessage(sender)
                 continue
             }
             text = text.toLowerCase()
@@ -276,7 +276,7 @@ function sendGenericMessage(sender) {
                 "elements": [{
                     "title": "First card",
                     "subtitle": "Element #1 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/hello_americanSL.png?alt=media&token=28107045-58d6-43c4-ae9f-0fcdab9c1c11",
                     "buttons": [{
                         "type": "web_url",
                         "url": "https://www.messenger.com",
