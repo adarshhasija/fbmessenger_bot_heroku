@@ -105,10 +105,10 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            //sendChooseSignWordMessage()
-            sendTextMessage(sender, "Sorry, I did not understand your reponse. Please try again.");
+            sendChooseSignWordMessage()
+            //sendTextMessage(sender, "Sorry, I did not understand your reponse. Please try again.");
         }
-      /*  if (event.postback) {
+        if (event.postback) {
           text = JSON.stringify(event.postback.payload)
           if (text === "HELLO") {
             sendTextMessage(sender, "Postback received: HELLO")
@@ -116,15 +116,14 @@ app.post('/webhook/', function (req, res) {
             //text = JSON.stringify(event.postback)
             //sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
             continue
-        } */
+        } 
     }	
     res.sendStatus(200)
 })
 
 
 function volunteerQuestions(response) {
-    if (text === 'Generic') {
-              //getUserProfile()
+     /*   if (text === 'Generic') {
                 sendGenericMessage(sender)
                 continue
             }
@@ -200,7 +199,7 @@ function volunteerQuestions(response) {
               sendTextMessage(sender, 'Thanks for your query. We will respond as quickly as possible')
                 resetState()
                 continue
-            }
+            } */
 }
 
 
@@ -270,7 +269,7 @@ function sendTextMessage(sender, text) {
 
 
 function sendChooseSignWordMessage() {
-  /*  messageData = {
+    messageData = {
         "attachment": {
             "type": "template",
             "payload": {
@@ -305,7 +304,7 @@ function sendChooseSignWordMessage() {
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
         }
-    })  */
+    })  
 }
 
 
