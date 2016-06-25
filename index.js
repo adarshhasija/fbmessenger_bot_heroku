@@ -82,7 +82,7 @@ var cur_state = 'new_user_start';
 app.get('/webhook/', function (req, res) {
 	if (req.query['hub.verify_token'] === '1234') {
 		res.send(req.query['hub.challenge']);
-		//sendWelcomeMessage()
+		sendWelcomeMessage()
 	} else {
 		console.l
 		res.send('Error, wrong validation token');
@@ -229,11 +229,7 @@ function sendWelcomeMessage(text) {
     json: {
       setting_type: "call_to_actions",
       thread_state: "new_thread",
-      call_to_actions: [
-      	{
-      		message: messageData
-      	},
-      ],
+      call_to_actions: [],
     }
   }, function(error, response, body) {
     if (error) {
