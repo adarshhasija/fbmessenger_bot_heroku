@@ -275,7 +275,7 @@ function sendChooseSignWordMessage() {
             "type": "template",
             "payload": {
                 "template_type": "button",
-                "text": "Choose a word to get the sign language"
+                "text": "Choose a word to get the sign language",
                 "buttons":[
                   {
                     "type":"postback",
