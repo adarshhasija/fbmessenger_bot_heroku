@@ -105,7 +105,7 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            chooseChooseSignWordMessage()
+            sendChooseSignWordMessage()
             //sendTextMessage(sender, "Sorry, I did not understand your reponse. Please try again.");
         }
       /*  if (event.postback) {
