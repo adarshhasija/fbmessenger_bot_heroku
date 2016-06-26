@@ -105,14 +105,14 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            sendChooseSignWordMessage()
+            sendChooseSignWordMessage("Choose a word to get the sign language", ["Hello", "Bye"])
             //sendTextMessage(sender, "Sorry, I did not understand your reponse. Please try again.");
         }
         if (event.postback) {
           text = event.postback.payload
-          sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
-          if (text === 'HELLO') {
-            sendTextMessage(sender, "Postback received: hello", token)
+          text = text.toLowerCase()
+          if (text === 'hello') {
+            
           }
             //text = JSON.stringify(event.postback)
             //sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
@@ -269,23 +269,23 @@ function sendTextMessage(sender, text) {
 };
 
 
-function sendChooseSignWordMessage() {
+function sendStructuredMessage(text, buttons) {
     messageData = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "button",
-                "text": "Choose a word to get the sign language",
+                "text": text,
                 "buttons":[
                   {
                     "type":"postback",
-                    "title":"Hello",
-                    "payload":"HELLO"
+                    "title":buttons[0],
+                    "payload":buttons[0]
                   },
                   {
                     "type":"postback",
-                    "title":"Bye",
-                    "payload":"BYE"
+                    "title":buttons[1],
+                    "payload":buttons[1]
                   }
                 ]
             }
