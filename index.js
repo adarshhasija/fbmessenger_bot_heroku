@@ -105,22 +105,36 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            sendStructuredTextMessage("Choose a word to get the sign language", ["Hello", "Bye"])
+            sendStructuredTextMessage("Choose a word to get the sign language", 
+              ["Hello", "Goodbye", "Nice to meet you", "Yes", "No", "Please", "Thanks"])
             //sendTextMessage(sender, "Sorry, I did not understand your reponse. Please try again.");
         }
         if (event.postback) {
           text = event.postback.payload
           text = text.toLowerCase()
           if (text === 'hello') {
-
-            elements = []
+            var elements = []
             elements.push({
                     "title": text,
                     "subtitle": "American Sign Language",
-                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/hello_americanSL.png?alt=media&token=28107045-58d6-43c4-ae9f-0fcdab9c1c11",
+                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/hello%2Fhello_americanSL.png?alt=media&token=edaa0fa7-da09-46d6-b621-b912bf10d6b2",
                     "buttons": [{
                         "type": "postback",
-                        "title": "Postback",
+                        "title": "Choose another word",
+                        "payload": "postback", //meaning default
+                    }],
+                })
+            sendGenericMessage(sender, elements)
+          }
+          else if (text === 'goodbye') {
+            var elements = []
+            elements.push({
+                    "title": text,
+                    "subtitle": "American Sign Language",
+                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/goodbye%2Fgoodbye_americanSL.png?alt=media&token=f2636f89-ba2f-4c59-9819-be03b78b2b4a",
+                    "buttons": [{
+                        "type": "postback",
+                        "title": "Choose another word",
                         "payload": "postback", //meaning default
                     }],
                 })
