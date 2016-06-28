@@ -106,7 +106,7 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             text = event.message.text
             sendStructuredTextMessage("Choose a word to get the sign language", 
-              ["Hello", "Goodbye", "Nice to meet you"])
+              ["Hello", "Goodbye", "Nice to meet you", "Yes"])
             //sendTextMessage(sender, "Sorry, I did not understand your reponse. Please try again.");
         }
         if (event.postback) {
