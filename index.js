@@ -141,7 +141,7 @@ app.post('/webhook/', function (req, res) {
             sendGenericMessage(sender, elements)
           }
           else {
-            sendStructuredTextMessage("Choose a word to get the sign language", ["Hello", "Bye"])
+            sendStructuredTextMessage("Choose a word to get the sign language", ["Hello", "Goodbye"])
           }
             //text = JSON.stringify(event.postback)
             //sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
