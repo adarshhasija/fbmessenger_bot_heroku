@@ -379,7 +379,7 @@ function sendStructuredTextMessage(text, buttons) {
             }
         }
     }
-    for(int i=0; i < buttons.length; i++) {
+    for(var i=0; i < buttons.length; i++) {
       messageData.attachment.payload.buttons.push({
                     "type":"postback",
                     "title":buttons[i],
