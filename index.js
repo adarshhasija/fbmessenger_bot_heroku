@@ -105,14 +105,26 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            sendStructuredMessage("Choose a word to get the sign language", ["Hello", "Bye"])
+            sendStructuredTextMessage("Choose a word to get the sign language", ["Hello", "Bye"])
             //sendTextMessage(sender, "Sorry, I did not understand your reponse. Please try again.");
         }
         if (event.postback) {
           text = event.postback.payload
           text = text.toLowerCase()
           if (text === 'hello') {
-            
+
+            elements = []
+            elements.push({
+                    "title": "Second card",
+                    "subtitle": "Element #2 of an hscroll",
+                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
+                    "buttons": [{
+                        "type": "postback",
+                        "title": "Postback",
+                        "payload": "Payload for second element in a generic bubble",
+                    }],
+                })
+            sendGenericMessage(sender, elements)
           }
             //text = JSON.stringify(event.postback)
             //sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
@@ -269,7 +281,7 @@ function sendTextMessage(sender, text) {
 };
 
 
-function sendStructuredMessage(text, buttons) {
+function sendStructuredTextMessage(text, buttons) {
     messageData = {
         "attachment": {
             "type": "template",
@@ -310,13 +322,15 @@ function sendStructuredMessage(text, buttons) {
 
 
 
-function sendGenericMessage(sender) {
+function sendGenericMessage(sender, elements) {
+
     messageData = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
-                "elements": [{
+                "elements": elements,
+                /* [{
                     "title": "First card",
                     "subtitle": "Element #1 of an hscroll",
                     "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/hello_americanSL.png?alt=media&token=28107045-58d6-43c4-ae9f-0fcdab9c1c11",
@@ -338,7 +352,7 @@ function sendGenericMessage(sender) {
                         "title": "Postback",
                         "payload": "Payload for second element in a generic bubble",
                     }],
-                }]
+                }]  */
             }
         }
     }
