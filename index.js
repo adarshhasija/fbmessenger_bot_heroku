@@ -115,16 +115,19 @@ app.post('/webhook/', function (req, res) {
 
             elements = []
             elements.push({
-                    "title": "Second card",
-                    "subtitle": "Element #2 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
+                    "title": text,
+                    "subtitle": "American Sign Language",
+                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/hello_americanSL.png?alt=media&token=28107045-58d6-43c4-ae9f-0fcdab9c1c11",
                     "buttons": [{
                         "type": "postback",
                         "title": "Postback",
-                        "payload": "Payload for second element in a generic bubble",
+                        "payload": "",
                     }],
                 })
             sendGenericMessage(sender, elements)
+          }
+          else {
+            sendStructuredTextMessage("Choose a word to get the sign language", ["Hello", "Bye"])
           }
             //text = JSON.stringify(event.postback)
             //sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
