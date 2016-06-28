@@ -140,6 +140,76 @@ app.post('/webhook/', function (req, res) {
                 })
             sendGenericMessage(sender, elements)
           }
+          else if (text === 'nice to meet you') {
+            var elements = []
+            elements.push({
+                    "title": text,
+                    "subtitle": "American Sign Language",
+                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/nice_to_meet_you%2Fnice_to_meet_you_americanSL.png?alt=media&token=310e04e6-4084-4407-a8b0-3835ebb061e7",
+                    "buttons": [{
+                        "type": "postback",
+                        "title": "Choose another word",
+                        "payload": "postback", //meaning default
+                    }],
+                })
+            sendGenericMessage(sender, elements)
+          }
+          else if (text === 'yes') {
+            var elements = []
+            elements.push({
+                    "title": text,
+                    "subtitle": "American Sign Language",
+                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/yes%2Fyes_americanSL.png?alt=media&token=a269b7a7-0d22-4d9c-9f1b-1f508ac444e5",
+                    "buttons": [{
+                        "type": "postback",
+                        "title": "Choose another word",
+                        "payload": "postback", //meaning default
+                    }],
+                })
+            sendGenericMessage(sender, elements)
+          }
+          else if (text === 'no') {
+            var elements = []
+            elements.push({
+                    "title": text,
+                    "subtitle": "American Sign Language",
+                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/no%2Fno_americanSL.png?alt=media&token=3437e2eb-e448-4c88-b18b-b2ffd2ca4c49",
+                    "buttons": [{
+                        "type": "postback",
+                        "title": "Choose another word",
+                        "payload": "postback", //meaning default
+                    }],
+                })
+            sendGenericMessage(sender, elements)
+          }
+          else if (text === 'please') {
+            var elements = []
+            elements.push({
+                    "title": text,
+                    "subtitle": "American Sign Language",
+                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/please%2Fplease_americanSL.png?alt=media&token=6776c70b-442f-49cf-9ce5-1b5bd3f34615",
+                    "buttons": [{
+                        "type": "postback",
+                        "title": "Choose another word",
+                        "payload": "postback", //meaning default
+                    }],
+                })
+            sendGenericMessage(sender, elements)
+          }
+          else if (text === 'thanks') {
+            var elements = []
+            elements.push({
+                    "title": text,
+                    "subtitle": "American Sign Language",
+                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/thanks%2Fthanks_americanSL.png?alt=media&token=541b5fc0-78ac-4b38-973c-fb9ffb761596",
+                    "buttons": [{
+                        "type": "postback",
+                        "title": "Choose another word",
+                        "payload": "postback", //meaning default
+                    }],
+                })
+            sendGenericMessage(sender, elements)
+          }
           else {
             sendStructuredTextMessage("Choose a word to get the sign language", ["Hello", "Goodbye"])
           }
