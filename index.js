@@ -121,7 +121,7 @@ app.post('/webhook/', function (req, res) {
                     "buttons": [{
                         "type": "postback",
                         "title": "Postback",
-                        "payload": "",
+                        "payload": "postback", //meaning default
                     }],
                 })
             sendGenericMessage(sender, elements)
