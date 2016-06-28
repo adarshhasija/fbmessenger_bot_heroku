@@ -117,7 +117,7 @@ app.post('/webhook/', function (req, res) {
             elements.push({
                     "title": text,
                     "subtitle": "American Sign Language",
-                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/hello%2Fhello_americanSL.png?alt=media&token=9505cbf2-98c1-46d8-9d1c-3c4c2b217019",
+                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/hello%2Fhello_americanSL.png?alt=media&token=fbd64055-b748-4f0e-9418-6f9739679c55",
                     "buttons": [{
                         "type": "postback",
                         "title": "Choose another word",
