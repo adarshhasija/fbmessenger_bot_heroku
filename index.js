@@ -375,21 +375,17 @@ function sendStructuredTextMessage(text, buttons) {
             "payload": {
                 "template_type": "button",
                 "text": text,
-                "buttons":[
-                  {
-                    "type":"postback",
-                    "title":buttons[0],
-                    "payload":buttons[0]
-                  },
-                  {
-                    "type":"postback",
-                    "title":buttons[1],
-                    "payload":buttons[1]
-                  }
-                ]
+                "buttons":[]
             }
         }
     }
+    for(int i=0; i < buttons.length; i++) {
+      messageData.attachment.payload.buttons.push({
+                    "type":"postback",
+                    "title":buttons[i],
+                    "payload":buttons[i]
+      })
+    } 
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},
