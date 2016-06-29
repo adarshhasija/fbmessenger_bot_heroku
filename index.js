@@ -105,9 +105,16 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            sendStructuredTextMessage("Choose a word to get the sign language", 
-              ["Hello", "Goodbye", "Nice to meet you", "Yes"])
-            //sendTextMessage(sender, "Sorry, I did not understand your reponse. Please try again.");
+            text = text.toLowerCase()
+            if (text.length == 1) {
+              letterToISL(sender, text)
+              continue
+            }
+            else {
+              sendTextMessage(sender, "Please enter 1 letter to get the Indian Sign Language translation")
+              continue
+            }
+            //sendStructuredTextMessage("Choose a word to get the sign language", ["Hello", "Goodbye", "Nice to meet you", "Yes"])
         }
         if (event.postback) {
           text = event.postback.payload
@@ -220,6 +227,22 @@ app.post('/webhook/', function (req, res) {
     }	
     res.sendStatus(200)
 })
+
+function letterToISL(sender, letter) {
+    switch(letter) {
+      case 'a':
+          var elements = []
+            elements.push({
+                    "title": "A",
+                    "subtitle": "Indian Sign Language",
+                    "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/isl_alphabet%2Fa_isl.png?alt=media&token=1f5c35a4-3113-4547-9c27-4d600b09cee0",
+                })
+            sendGenericMessage(sender, elements)
+          break
+      default:
+          break
+    }
+}
 
 
 function volunteerQuestions(response) {
@@ -366,7 +389,6 @@ function sendTextMessage(sender, text) {
     } 
   });
 };
-
 
 function sendStructuredTextMessage(text, buttons) {
     messageData = {
