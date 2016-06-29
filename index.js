@@ -233,12 +233,14 @@ function letterToISL(sender, letter) {
       case 'a':
           var elements = []
             elements.push({
-                    "title": "A",
+                    "title": letter.toUpperCase(),
                     "subtitle": "Indian Sign Language",
                     "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/isl_alphabet%2Fa_isl.png?alt=media&token=1f5c35a4-3113-4547-9c27-4d600b09cee0",
                 })
             sendGenericMessage(sender, elements)
           break
+      case 'b':
+          
       default:
           break
     }
