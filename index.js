@@ -596,7 +596,19 @@ function sendWelcomeMessage(text) {
 
 function sendTextMessage(sender, text) {
   messageData = {
-    text:text
+    text:text,
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Red",
+        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+      },
+      {
+        "content_type":"text",
+        "title":"Green",
+        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
+      }
+    ]
   }
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
