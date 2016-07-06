@@ -40,6 +40,11 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
   process.exit(1);
 }
 
+app.get('/', function(req, res) {
+  //res.render('pages/index');
+  res.send('hello world, I am a chat bot')
+});
+
 /*
  * Use your own validation token. Check that the token used in the Webhook 
  * setup is the same token used here.
