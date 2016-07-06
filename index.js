@@ -2,11 +2,7 @@
 
 const 
   bodyParser = require('body-parser'),
-  config = require('config'),
-  crypto = require('crypto'),
-  express = require('express'),
-  https = require('https'),  
-  request = require('request');
+  express = require('express');
 
 var app = express();
 
@@ -29,5 +25,3 @@ app.get('/', function(req, res) {
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-
-module.exports = app;
