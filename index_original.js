@@ -261,6 +261,8 @@ function letterToISL(sender, letter) {
                     "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/isl_alphabet%2Fc_isl.png?alt=media&token=d67d00b2-00de-4854-ad60-d348fc0ec4e9",
                 })
             sendGenericMessage(sender, elements)
+            sendTextMessage(sender, "Raise your hand with your palm pointing left or right. Curl your fingers downwards and your thumb "+
+                                    "upwards to form a curve shape")
             break
       case 'd':
             var elements = []
@@ -270,6 +272,10 @@ function letterToISL(sender, letter) {
                     "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/isl_alphabet%2Fd_isl.png?alt=media&token=83d2db2c-ddcc-469d-a4ac-960cee153fb0",
                 })
             sendGenericMessage(sender, elements)
+            sendTextMessage(sender, "Raise your left hand with fingers pointed up and palm pointed outwards. Extend your thumb "+
+                                    "out to right and close your 3,4 and 5th fingers. Now raise your right hand. Place the tip of your first "+
+                                    "finger at the tip of your left hand first finger place your right hand thumb tip at the base of "+
+                                    "your left hand first finger")
             break
       case 'e':
             var elements = []
