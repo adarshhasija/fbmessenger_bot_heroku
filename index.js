@@ -50,7 +50,7 @@ app.get('/webhook/', function(req, res) {
  * https://developers.facebook.com/docs/messenger-platform/implementation#subscribe_app_pages
  *
  */
-app.post('/webhook', function (req, res) {
+app.post('/webhook/', function (req, res) {
   var data = req.body;
 
   // Make sure this is a page subscription
