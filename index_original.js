@@ -249,6 +249,9 @@ function letterToISL(sender, letter) {
                     "image_url": "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/isl_alphabet%2Fb_isl.png?alt=media&token=cf006cc1-c02b-4597-a4f3-daaab1c3072a",
                 })
             sendGenericMessage(sender, elements)
+            sendTextMessage(sender, "Raise both your hands with fingers pointing up and palms pointing inwards, towards the other "+
+                                    "hand. Close each hand so that the tips of the fingers touch the tip of the thumb. Now move both "+
+                                    "hands together so that the tip of the thumbs of one hand touches the tip of the thumb of the other")
             break
       case 'c':
           var elements = []
