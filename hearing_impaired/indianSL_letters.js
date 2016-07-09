@@ -4,7 +4,7 @@ module.exports = {
 };
 
 
-function letterToISLImage(sender, letter) {
+function letterToISLImage(letter) {
     switch(letter) {
       case 'a':
           var elements = []
