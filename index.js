@@ -188,8 +188,8 @@ function receivedMessage(event) {
     // the text we received.
     messageText = messageText.toLowerCase()
     if (messageText.length == 1) {
-          var description = indianSL_letters.letterToISLDescription(messageText);
-          sendTextMessage(senderID, description)
+          //var description = indianSL_letters.letterToISLDescription(messageText);
+          //sendTextMessage(senderID, description)
           var imageURL = indianSL_letters.letterToISLImage(messageText);
           sendImageMessage(senderID, imageURL);
     }
