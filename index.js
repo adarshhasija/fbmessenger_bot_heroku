@@ -190,6 +190,8 @@ function receivedMessage(event) {
     if (messageText.length == 1) {
           var description = indianSL_letters.letterToISLDescription(messageText);
           sendTextMessage(senderID, description)
+          var imageURL = indianSL_letters.letterToISLImage(messageText);
+          sendImageMessage(senderID);
     }
     else {
       sendTextMessage(senderID, DEFAULT_MESSAGE)
