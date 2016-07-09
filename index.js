@@ -26,7 +26,7 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
 
 app.get('/', function(req, res) {
   //res.render('pages/index');
-  res.send('hello world, I am a chat bot')
+  //res.send('hello world, I am a chat bot')
   hearing_impaired.foo(res)
 });
 
