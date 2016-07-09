@@ -18,6 +18,7 @@ const APP_SECRET = "e72a4da3c3f17067c224f3d372a12e7f";
 const VALIDATION_TOKEN = "1234";
 const PAGE_ACCESS_TOKEN = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
 
+
 if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
   console.error("Missing config values");
   process.exit(1);
@@ -26,8 +27,7 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
 
 app.get('/', function(req, res) {
   //res.render('pages/index');
-  //res.send('hello world, I am a chat bot')
-  hearing_impaired.foo(res)
+  res.send('hello world, I am a chat bot')
 });
 
 /*
@@ -300,6 +300,23 @@ function sendTextMessage(recipientId, messageText) {
   callSendAPI(messageData);
 }
 
+/*
+ * Send a text message using the Send API.
+ *
+ */
+function sendTextMessage(recipientId, messageText, quickReplies) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: messageText,
+      quick_replies: quickReplies,
+    }
+  };
+
+  callSendAPI(messageData);
+}
 
 /*
  * Send a button message using the Send API.
