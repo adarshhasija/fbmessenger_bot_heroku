@@ -2,6 +2,7 @@
 
 const 
   bodyParser = require('body-parser'),
+  crypto = require('crypto'),
   express = require('express');
 
 var app = express();
