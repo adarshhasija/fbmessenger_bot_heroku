@@ -6,6 +6,7 @@ const
   request = require('request'),
   express = require('express');
 
+var hearing_impaired = require('./hearing_impaired')
 var app = express();
 
 app.set('port', process.env.PORT || 5000);
@@ -26,6 +27,7 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
 app.get('/', function(req, res) {
   //res.render('pages/index');
   res.send('hello world, I am a chat bot')
+  hearing_impaired.foo()
 });
 
 /*
