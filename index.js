@@ -188,7 +188,7 @@ function receivedMessage(event) {
     // the text we received.
     messageText = messageText.toLowerCase()
     if (messageText.length == 1) {
-          var description = hearing_impaired.letterToISLDescription(text);
+          var description = indianSL_letters.letterToISLDescription(text);
           sendTextMessage(senderID, description)
     }
     else {
