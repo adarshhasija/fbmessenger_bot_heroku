@@ -188,8 +188,8 @@ function receivedMessage(event) {
     // the text we received.
     messageText = messageText.toLowerCase()
     if (messageText.length == 1) {
-          //var description = indianSL_letters.letterToISLDescription(messageText);
-          //sendTextMessage(senderID, description)
+          var description = indianSL_letters.letterToISLDescription(messageText);
+          sendTextMessage(senderID, description)
           var imageURL = indianSL_letters.letterToISLImage(messageText);
           sendImageMessage(senderID, imageURL);
     }
@@ -285,7 +285,7 @@ function sendImageMessage(recipientId, imageURL) {
       attachment: {
         type: "image",
         payload: {
-          url: "https://firebasestorage.googleapis.com/v0/b/cila-1.appspot.com/o/isl_alphabet%2Fa_isl.png?alt=media&token=1f5c35a4-3113-4547-9c27-4d600b09cee0"
+          url: imageURL
         }
       }
     }
