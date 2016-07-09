@@ -6,7 +6,7 @@ const
   request = require('request'),
   express = require('express');
 
-var indianSL_letters = require('.hearing_impaired/indianSL_letters')
+var indianSL_letters = require('./hearing_impaired/indianSL_letters')
 var app = express();
 
 app.set('port', process.env.PORT || 5000);
