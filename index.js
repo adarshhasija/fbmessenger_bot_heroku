@@ -6,7 +6,7 @@ const
   request = require('request'),
   express = require('express');
 
-var hearing_impaired = require('./hearing_impaired')
+var indianSL_letters = require('.hearing_impaired/indianSL_letters')
 var app = express();
 
 app.set('port', process.env.PORT || 5000);
@@ -18,6 +18,7 @@ const APP_SECRET = "e72a4da3c3f17067c224f3d372a12e7f";
 const VALIDATION_TOKEN = "1234";
 const PAGE_ACCESS_TOKEN = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
 
+const DEFAULT_MESSAGE = "Enter a letter to get its Indian Sign Language";
 
 if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
   console.error("Missing config values");
@@ -185,7 +186,15 @@ function receivedMessage(event) {
     // If we receive a text message, check to see if it matches any special
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
-    switch (messageText) {
+    messageText = messageText.toLowerCase()
+    if (messageText.length == 1) {
+          var description = letterToISLDescription(text);
+          sendTextMessage(senderID, description)
+    }
+    else {
+      sendTextMessage(senderID, DEFAULT_MESSAGE)
+    }
+   /* switch (messageText) {
       case 'image':
         sendImageMessage(senderID);
         break;
@@ -203,15 +212,8 @@ function receivedMessage(event) {
         break;
 
       default:
-        var quick_replies = [
-            {
-            "content_type":"text",
-            "title":"Hello",
-            "payload":"hello"
-          },
-        ];
-        sendTextMessage(senderID, messageText, quick_replies);
-    }
+        sendTextMessage(senderID, DEFAULT_MESSAGE);
+    } */
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
@@ -272,7 +274,7 @@ function receivedPostback(event) {
  * Send a message with an using the Send API.
  *
  */
-function sendImageMessage(recipientId) {
+function sendImageMessage(recipientId, imageURL) {
   var messageData = {
     recipient: {
       id: recipientId
@@ -281,7 +283,7 @@ function sendImageMessage(recipientId) {
       attachment: {
         type: "image",
         payload: {
-          url: "http://i.imgur.com/zYIlgBl.png"
+          url: imageURL
         }
       }
     }
