@@ -203,7 +203,14 @@ function receivedMessage(event) {
         break;
 
       default:
-        sendTextMessage(senderID, messageText);
+        var quick_replies = [
+            {
+            "content_type":"text",
+            "title":"Hello",
+            "payload":"hello"
+          },
+        ];
+        sendTextMessage(senderID, messageText, quick_replies);
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
