@@ -14,9 +14,15 @@ app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
 //Details for Cila
-const APP_SECRET = "e72a4da3c3f17067c224f3d372a12e7f";
-const VALIDATION_TOKEN = "1234";
-const PAGE_ACCESS_TOKEN = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
+//const APP_SECRET = "e72a4da3c3f17067c224f3d372a12e7f";
+//const VALIDATION_TOKEN = "1234";
+//const PAGE_ACCESS_TOKEN = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
+
+//Details for StarsEarth
+const APP_SECRET = "259832f8c93e80eb813dabdd8e1861bc";
+const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
+const PAGE_ACCEESS_TOKEN = "EAADqtwIQ3B0BAMZA1s4xvIn0tToKci9B43JhMQXVzKpDAYGf5rTFotNaYZCfaPAdgDxP8Id2b9c9uqp0quYGzihJtZCIgVZABZCkLWniUz2lbE0xfuKPSub9LPCwOZASUgn1LCnidZASnkVkoMXoZATHauMWZBAnu6dFTX19NkZCFdNQZDZD";
+
 
 const DEFAULT_MESSAGE = "Enter a letter to get its Indian Sign Language";
 
