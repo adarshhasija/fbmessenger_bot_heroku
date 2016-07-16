@@ -58,9 +58,7 @@ const u_description = "Raise your left hand with fingers pointed up and palm fac
 const v_description = "Raise your left hand with fingers pointed up and palm pointed outwards. Close all but your 1st and 2nd finger. Move these two fingers apart so that they form a V.";
 const w_description = "Raise your left hand with palm pointing inwards. Show three fingers with your left hand.";
 const x_description = "Put the first finger of your right hand on the first finger of your left hand";
-const y_description = "Raise your left hand so that the fingers are pointed up and the palm is facing to the right. Extend your thumb outwards so that the thumb and first finger form a U. "+
-						"Close all the other fingers. Now take the first finger of the right hand and place it on the palm of your left hand between the first finger and the thumb. "+
-						"Close all other fingers of your right hand.";
+const y_description = "ABC";
 const z_description = "Raise your left hand with palm facing up. Take your right hand and place the tip of all fingers on the palm of your left hand.";
 
 function letterToISLImage(letter) {
