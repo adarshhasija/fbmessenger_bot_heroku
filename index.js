@@ -193,7 +193,7 @@ function receivedMessage(event) {
               sendTextMessage(senderID, "length greater than 0") 
           }
           else {
-              sendTextMessage(senderID, "length is 0")
+              sendTextMessage(senderID, "length is 0" + description)
           }
           //sendTextMessage(senderID, description)
           //var imageURL = indianSL_letters.letterToISLImage(messageText);
