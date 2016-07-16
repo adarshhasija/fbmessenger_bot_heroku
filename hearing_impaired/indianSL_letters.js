@@ -42,9 +42,8 @@ const q_description = "Raise your right hand with palm facing outward and finger
 						"finger. Now raise your left hand and move it towards your right hand. Use your thumb and 1st finger to hold the 2nd finger of your right hand at the tip";
 const r_description = "Raise your left hand so that the fingers point up and the palm faces inwards. Rotate your hand so that the fingers point to the top right. Now raise your right "+
 						"hand. Curl your thumb and fingers inwards so that they form an O and place your right hand on the palm of your left hand.";
-const s_description = "Raise your left hand with fingers pointed upwards and palm facing inwards. Rotate your hand so the fingers point to the top right. Place your right hand flat behind your "+
-						"left such that the thumb is in front of the left hand but the remaining fingers are behind. Put your right thumb between the last 2 fingers of your left hand so that the "+
-						"thumb is in front of the last finger but behind the other fingers";
+const s_description = "Raise your left hand with palm facing inward. Rotate your hand to point to the top right. Place the right hand behind the left such that only the thumb is in front of the "+
+						"left hand. Put the right thumb between the last 2 fingers of your left hand. It should be in front of the last finger but behind the other fingers";
 const t_description = "Raise your left hand so that the fingers are pointed to the right and the palm downwards. Curl all fingers inwards except the 1st finger. Now raise your right hand with "+
 						"fingers pointed upwards and palm outwards. Close all fingers except the 1st finger. Touch the tip of the right finger to the tip of the left finger";
 const u_description = "Raise your left hand with fingers pointed up and palm facing right. Curl your 2nd to 4th fingers into your palm. Curl your thumb away from your palm slightly "+
