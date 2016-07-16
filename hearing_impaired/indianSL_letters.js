@@ -17,19 +17,17 @@ const d_description = "Raise your left hand with fingers pointed up and palm poi
 const e_description = "Raise your left hand with palm facing inwards. Turn your hand so that your fingers are pointing towards the upper right and close all "+
 						"fingers except your 1st finger extended. Now lift your right hand with palms facing outward. Close all fingers except the 1st finger. "+
 						"Now ensure the tips of both 1st fingers are touching";
-const f_description = "Raise your left hand with palm facing inwards and fingers pointed up. Rotate your hand slightly so that your fingers are pointed to "+
-						"the top right. Curl your last two fingers into your palm. Now lift your right hand so that the fingers are facing upward and the palm "+
-						"is facing outward. Curl the last two fingers into the palm touch the tip of the first two fingers against the tip of the first two fingers "+
-						"of the left hand";
+const f_description = "Raise your left hand with palm facing inward. Rotate it slightly so your fingers are pointed to the top right. Close your last 2 fingers. "+
+						"Lift your right hand with palm facing outward and fingers upward. Close the last 2 fingers and touch the tip of the 1st 2 fingers against the "+
+						"same fingers of the left hand";
 const g_description = "Raise your left hand with and curl it into a fist with palm pointed inwards. Do the same with your right hand and place it over your left hand. ";
 const h_description = "Raise your left hand with palm facing you and fingers facing straight to the right. Raise your right hand with palm facing out and fingers facing "+
 						"upwards. Place your right hand on your left wrist.";
 const i_description = "Raise your right hand with palm facing out and fingers facing up. Close your thumb and your 2nd to 5th fingers. Only your first finger should be pointed up";
 const j_description = "Raise your right hand with palm facing right and fingers pointed downwards. Extend your thumb outwards away from your palm. Curl your first two fingers "+
 						"inwards slightly";
-const k_description = "Raise your left hand with fingers pointed up and palm facing to the right. Extend your thumb away from your palm. Now raise your right hand with fingers "+
-						"pointed up and palm facing left. It should be facing the left hand. Now extend your right thumb and place it on your left thumb. Curl your fingers inwards "+
-						"slightly so that it touches the fingers of your left hand."; 
+const k_description = "Raise your left hand with fingers pointed up and palm facing right. Extend your thumb away from your palm. Now raise your right hand with fingers pointed up "+
+						"and palm facing the left hand. Extend and place the right thumb on the left thumb. Curl the fingers inwards slightly so they touch the fingers of the left hand"; 
 const l_description = "Raise your left hand with fingers pointed up and palm pointed outwards. Extend your thumb out to the right. Close your 2nd to 4th fingers.";
 const m_description = "Raise your left with fingers pointed up and palm facing inwards. Rotate your hand so that your fingers are pointed to the top right. Now raise "+
 						"your right hand with fingers facing up and palm facing the left hand. Close the thumb and last finger. Place the middle three fingers on the "+
