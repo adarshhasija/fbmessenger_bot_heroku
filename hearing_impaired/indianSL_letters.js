@@ -14,10 +14,9 @@ const d_description = "Raise your left hand with fingers pointed up and palm poi
                                     "out to right and close your 3,4 and 5th fingers. Now raise your right hand. Place the tip of your first "+
                                     "finger at the tip of your left hand first finger and place your right hand thumb tip at the base of "+
                                     "your left hand first finger";
-const e_description = "Raise your left hand with palm facing inwards. Turn your hand so that your fingers are pointing upwards and slightly "+
-						"to the right. Close your thumb and 2nd to 5th finger leaving only your first finger extended. Now lift your right hand "+
-						"with palms facing outward. Close your thumb and 2nd to 5th fingers. Leave your 1st finger pointed upwards and touch the tip "+
-						"of this finger to the tip of the 1st finger of your left hand";
+const e_description = "Raise your left hand with palm facing inwards. Turn your hand so that your fingers are pointing towards the upper right and close all "+
+						"fingers except your 1st finger extended. Now lift your right hand with palms facing outward. Close all fingers except the 1st finger. "+
+						"Now ensure the tips of both 1st fingers are touching";
 const f_description = "Raise your left hand with palm facing inwards and fingers pointed up. Rotate your hand slightly so that your fingers are pointed to "+
 						"the top right. Curl your last two fingers into your palm. Now lift your right hand so that the fingers are facing upward and the palm "+
 						"is facing outward. Curl the last two fingers into the palm touch the tip of the first two fingers against the tip of the first two fingers "+
@@ -58,7 +57,9 @@ const u_description = "Raise your left hand with fingers pointed up and palm fac
 const v_description = "Raise your left hand with fingers pointed up and palm pointed outwards. Close all but your 1st and 2nd finger. Move these two fingers apart so that they form a V.";
 const w_description = "Raise your left hand with palm pointing inwards. Show three fingers with your left hand.";
 const x_description = "Put the first finger of your right hand on the first finger of your left hand";
-const y_description = "ABC";
+const y_description = "Raise your left hand so that the fingers are pointed up and the palm is facing to the right. Extend your thumb outwards so that the thumb and first finger form a U. "+
+						"Close all the other fingers. Now take the first finger of the right hand and place it on the palm of your left hand between the first finger and the thumb. "+
+						"Close all other fingers of your right hand.";
 const z_description = "Raise your left hand with palm facing up. Take your right hand and place the tip of all fingers on the palm of your left hand.";
 
 function letterToISLImage(letter) {
