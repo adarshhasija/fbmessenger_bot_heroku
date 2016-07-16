@@ -3,7 +3,7 @@ module.exports = {
     letterToISLDescription: letterToISLDescription,
 };
 
-const a_description = "Raise both your hands with fingers pointing up and palms pointing away from you. Extend both your thumbs so that"+
+const a_description = "Raise both your hands with fingers pointing up and palms pointing away from you. Extend both your thumbs so that "+
                                     "the tips are touching. Finally curl all your other fingers inwards";
 const b_description = "Raise both your hands with fingers pointing up and palms pointing inwards, towards the other "+
                                     "hand. Close each hand so that the tips of the fingers touch the tip of the thumb. Now move both "+
@@ -12,7 +12,7 @@ const c_description = "Raise your hand with your palm pointing left or right. Cu
                                     "upwards to form a curve shape";
 const d_description = "Raise your left hand with fingers pointed up and palm pointed outwards. Extend your thumb "+
                                     "out to right and close your 3,4 and 5th fingers. Now raise your right hand. Place the tip of your first "+
-                                    "finger at the tip of your left hand first finger place your right hand thumb tip at the base of "+
+                                    "finger at the tip of your left hand first finger and place your right hand thumb tip at the base of "+
                                     "your left hand first finger";
 const e_description = "Raise your left hand with palm facing inwards. Turn your hand so that your fingers are pointing upwards and slightly "+
 						"to the right. Close your thumb and 2nd to 5th finger leaving only your first finger extended. Now lift your right hand "+
