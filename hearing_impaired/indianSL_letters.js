@@ -36,28 +36,24 @@ const n_description = "Raise your left with fingers pointed up and palm facing i
 						"your right hand with fingers facing up and palm facing the left hand. Close the thumb and last two finger. Place the middle two fingers on the "+
 						"wrist of the left hand";
 const o_description = "Raise your right hand with fingers pointed up and palm facing the right. Curl your thumb and first finger so that the tips touch to form the letter O.";
-const p_description = "Raise your left hand with fingers pointed upwards and palm facing the right. Extend your thumb outwards away from your palm. Curl your 2nd to 4th "+
-						"fingers into your palm. Now raise your right hand with fingers pointed up and palm facing the left hand. Curl the fingers and the thumb so that they "+
-						"form an O and place it against the first finger of the left hand.";
-const q_description = "Raise your right hand with palm facing outward and fingers pointed up. Rotate the hand a little so that the fingers point to the top left. Close all fingers "+
-						"except your second(middle) finger. Now raise your left hand and move it towards your right hand. Use your thumb and first finger to hold the second finger "+
-						"of your right hand at the tip";
+const p_description = "Raise your left hand with fingers pointed upwards and palm facing right. Extend your thumb away from your palm. Close your 2nd to 4th fingers. Now raise your "+
+						"right hand with fingers pointed up and palm facing the left hand. Curl the fingers and thumb so that they form an O and move them against the left hand 1st finger";
+const q_description = "Raise your right hand with palm facing outward and fingers pointed up. Rotate the hand so that the fingers point to the top left. Close all fingers except your second "+
+						"finger. Now raise your left hand and move it towards your right hand. Use your thumb and 1st finger to hold the 2nd finger of your right hand at the tip";
 const r_description = "Raise your left hand so that the fingers point up and the palm faces inwards. Rotate your hand so that the fingers point to the top right. Now raise your right "+
 						"hand. Curl your thumb and fingers inwards so that they form an O and place your right hand on the palm of your left hand.";
-const s_description = "Raise your left hand with fingers pointed upwards and palm facing inwards. Rotate your hand so that the fingers point to the top right. Now place your "+
-						"right hand flat behind your left such that the thumb is in front of the left hand but the remaining fingers are behind. Now put your right thumb between "+
-						"the last two fingers of your left hand so that the thumb is in front of the last finger but behind the other fingers.";
-const t_description = "Raise your left hand so that the fingers are pointed to the right and the palm is pointed downwards. Curl all your fingers inwards except your first finger. Now "+
-						"raise your right with fingers pointed upwards and palm pointed outwards. Curl all your fingers in so that only your first finger is pointing upwards. Now touch "+
-						"the tip of your right finger to the tip of your left finger.";
+const s_description = "Raise your left hand with fingers pointed upwards and palm facing inwards. Rotate your hand so the fingers point to the top right. Place your right hand flat behind your "+
+						"left such that the thumb is in front of the left hand but the remaining fingers are behind. Put your right thumb between the last 2 fingers of your left hand so that the "+
+						"thumb is in front of the last finger but behind the other fingers";
+const t_description = "Raise your left hand so that the fingers are pointed to the right and the palm downwards. Curl all fingers inwards except the 1st finger. Now raise your right hand with "+
+						"fingers pointed upwards and palm outwards. Close all fingers except the 1st finger. Touch the tip of the right finger to the tip of the left finger";
 const u_description = "Raise your left hand with fingers pointed up and palm facing right. Curl your 2nd to 4th fingers into your palm. Curl your thumb away from your palm slightly "+
 						"so that your first finger and thumb form a U curve.";
 const v_description = "Raise your left hand with fingers pointed up and palm pointed outwards. Close all but your 1st and 2nd finger. Move these two fingers apart so that they form a V.";
 const w_description = "Raise your left hand with palm pointing inwards. Show three fingers with your left hand.";
 const x_description = "Put the first finger of your right hand on the first finger of your left hand";
-const y_description = "Raise your left hand so that the fingers are pointed up and the palm is facing to the right. Extend your thumb outwards so that the thumb and first finger form a U. "+
-						"Close all the other fingers. Now take the first finger of the right hand and place it on the palm of your left hand between the first finger and the thumb. "+
-						"Close all other fingers of your right hand.";
+const y_description = "Raise your left hand so that the fingers are pointed up and the palm is facing right. Extend your thumb outwards so that the thumb and 1st finger form a U. Close all "+
+						"the other fingers. Take the 1st finger of the right hand and place it on the palm of the left hand between the 1st finger and the thumb";
 const z_description = "Raise your left hand with palm facing up. Take your right hand and place the tip of all fingers on the palm of your left hand.";
 
 function letterToISLImage(letter) {
