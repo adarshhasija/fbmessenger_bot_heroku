@@ -112,6 +112,7 @@ app.post('/webhook/', function (req, res) {
 });
 
 app.post('/staging_webhook/', function (req, res) {
+  app.use(bodyParser.json({ verify: verifyRequestSignatureStaging }));
   var data = req.body;
 
   // Make sure this is a page subscription
