@@ -19,12 +19,14 @@ app.use(express.static('public'));
 //const PAGE_ACCESS_TOKEN = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
 
 //Details for StarsEarth - Test1
-const STAGING_APP_SECRET = "5570eee5bbd29459fe04f1cf986ab3a8";
+const APP_SECRET = "5570eee5bbd29459fe04f1cf986ab3a8";
+const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
+const PAGE_ACCESS_TOKEN = "EAADq7fMr0UUBAP3wfrRSpZBz00bXfJq2IWsE0F3R3nQblyrd8D1iX3vuTZCkSpxhb8sMZBmYjaneUX4dD5azd9bsZCIL00n7WDVDf265Bw9PgBx00oZAyJ3azaYxtTns3u2vWsgfUfUOZCElKSpIZBMqgwXXcDJxJ4UeoKUDf4lxwZDZD";
 
 //Details for StarsEarth
-const APP_SECRET = "259832f8c93e80eb813dabdd8e1861bc";
-const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
-const PAGE_ACCESS_TOKEN = "EAADqtwIQ3B0BAMZA1s4xvIn0tToKci9B43JhMQXVzKpDAYGf5rTFotNaYZCfaPAdgDxP8Id2b9c9uqp0quYGzihJtZCIgVZABZCkLWniUz2lbE0xfuKPSub9LPCwOZASUgn1LCnidZASnkVkoMXoZATHauMWZBAnu6dFTX19NkZCFdNQZDZD";
+//const APP_SECRET = "259832f8c93e80eb813dabdd8e1861bc";
+//const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
+//const PAGE_ACCESS_TOKEN = "EAADqtwIQ3B0BAMZA1s4xvIn0tToKci9B43JhMQXVzKpDAYGf5rTFotNaYZCfaPAdgDxP8Id2b9c9uqp0quYGzihJtZCIgVZABZCkLWniUz2lbE0xfuKPSub9LPCwOZASUgn1LCnidZASnkVkoMXoZATHauMWZBAnu6dFTX19NkZCFdNQZDZD";
 
 
 
@@ -47,17 +49,6 @@ app.get('/', function(req, res) {
  *
  */
 app.get('/webhook/', function(req, res) {
-  if (req.query['hub.mode'] === 'subscribe' &&
-      req.query['hub.verify_token'] === VALIDATION_TOKEN) {
-    console.log("Validating webhook");
-    res.status(200).send(req.query['hub.challenge']);
-  } else {
-    console.error("Failed validation. Make sure the validation tokens match.");
-    res.sendStatus(403);          
-  }  
-});
-
-app.get('/staging_webhook/', function(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
       req.query['hub.verify_token'] === VALIDATION_TOKEN) {
     console.log("Validating webhook");
@@ -112,7 +103,6 @@ app.post('/webhook/', function (req, res) {
 });
 
 app.post('/staging_webhook/', function (req, res) {
-  app.use(bodyParser.json({ verify: verifyRequestSignatureStaging }));
   var data = req.body;
 
   // Make sure this is a page subscription
