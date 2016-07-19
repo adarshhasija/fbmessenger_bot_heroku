@@ -10,10 +10,9 @@ const b_description = "Raise both your hands with fingers pointing up and palms 
                                     "hands together so that the tip of the thumbs of one hand touches the tip of the thumb of the other";
 const c_description = "Raise your hand with your palm pointing left or right. Curl your fingers downwards and your thumb "+
                                     "upwards to form a curve shape";
-const d_description = "Raise your left hand with fingers pointed up and palm pointed outwards. Extend your thumb "+
-                                    "out to right and close your 3,4 and 5th fingers. Now raise your right hand. Place the tip of your first "+
-                                    "finger at the tip of your left hand first finger and place your right hand thumb tip at the base of "+
-                                    "your left hand first finger";
+const d_description = "Raise your left hand with fingers pointed up and palm pointed outwards. Extend your thumb out to right and close your 3rd to 5th fingers. "+
+                        "Now raise your right hand. Place the tip of your first finger at the tip of your left hand first finger and place your right hand thumb tip "+
+                          "at the base of your left hand first finger";
 const e_description = "Raise your left hand with palm facing inwards. Turn your hand so that your fingers are pointing towards the upper right and close all "+
 						"fingers except your 1st finger extended. Now lift your right hand with palms facing outward. Close all fingers except the 1st finger. "+
 						"Now ensure the tips of both 1st fingers are touching";

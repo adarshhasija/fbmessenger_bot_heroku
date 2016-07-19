@@ -18,18 +18,22 @@ app.use(express.static('public'));
 //const VALIDATION_TOKEN = "1234";
 //const PAGE_ACCESS_TOKEN = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
 
+//Details for StarsEarth - Test1
+const STAGING_APP_SECRET = "5570eee5bbd29459fe04f1cf986ab3a8";
+
 //Details for StarsEarth
 const APP_SECRET = "259832f8c93e80eb813dabdd8e1861bc";
 const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
 const PAGE_ACCESS_TOKEN = "EAADqtwIQ3B0BAMZA1s4xvIn0tToKci9B43JhMQXVzKpDAYGf5rTFotNaYZCfaPAdgDxP8Id2b9c9uqp0quYGzihJtZCIgVZABZCkLWniUz2lbE0xfuKPSub9LPCwOZASUgn1LCnidZASnkVkoMXoZATHauMWZBAnu6dFTX19NkZCFdNQZDZD";
 
 
+
 const DEFAULT_MESSAGE = "Enter a letter to get its Indian Sign Language";
 
-if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
+/*if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
   console.error("Missing config values");
   process.exit(1);
-}
+}*/
 
 
 app.get('/', function(req, res) {
@@ -53,6 +57,17 @@ app.get('/webhook/', function(req, res) {
   }  
 });
 
+app.get('/staging_webhook/', function(req, res) {
+  if (req.query['hub.mode'] === 'subscribe' &&
+      req.query['hub.verify_token'] === VALIDATION_TOKEN) {
+    console.log("Validating webhook");
+    res.status(200).send(req.query['hub.challenge']);
+  } else {
+    console.error("Failed validation. Make sure the validation tokens match.");
+    res.sendStatus(403);          
+  }  
+});
+
 
 /*
  * All callbacks for Messenger are POST-ed. They will be sent to the same
@@ -62,6 +77,41 @@ app.get('/webhook/', function(req, res) {
  *
  */
 app.post('/webhook/', function (req, res) {
+  var data = req.body;
+
+  // Make sure this is a page subscription
+  if (data.object == 'page') {
+    // Iterate over each entry
+    // There may be multiple if batched
+    data.entry.forEach(function(pageEntry) {
+      var pageID = pageEntry.id;
+      var timeOfEvent = pageEntry.time;
+
+      // Iterate over each messaging event
+      pageEntry.messaging.forEach(function(messagingEvent) {
+        if (messagingEvent.optin) {
+          receivedAuthentication(messagingEvent);
+        } else if (messagingEvent.message) {
+          receivedMessage(messagingEvent);
+        } else if (messagingEvent.delivery) {
+          receivedDeliveryConfirmation(messagingEvent);
+        } else if (messagingEvent.postback) {
+          receivedPostback(messagingEvent);
+        } else {
+          console.log("Webhook received unknown messagingEvent: ", messagingEvent);
+        }
+      });
+    });
+
+    // Assume all went well.
+    //
+    // You must send back a 200, within 20 seconds, to let us know you've 
+    // successfully received the callback. Otherwise, the request will time out.
+    res.sendStatus(200);
+  }
+});
+
+app.post('/staging_webhook/', function (req, res) {
   var data = req.body;
 
   // Make sure this is a page subscription
@@ -117,6 +167,29 @@ function verifyRequestSignature(req, res, buf) {
     var signatureHash = elements[1];
 
     var expectedHash = crypto.createHmac('sha1', APP_SECRET)
+                        .update(buf)
+                        .digest('hex');
+
+    if (signatureHash != expectedHash) {
+      throw new Error("Couldn't validate the request signature.");
+    }
+  }
+}
+
+
+function verifyRequestSignatureStaging(req, res, buf) {
+  var signature = req.headers["x-hub-signature"];
+
+  if (!signature) {
+    // For testing, let's log an error. In production, you should throw an 
+    // error.
+    console.error("Couldn't validate the signature.");
+  } else {
+    var elements = signature.split('=');
+    var method = elements[0];
+    var signatureHash = elements[1];
+
+    var expectedHash = crypto.createHmac('sha1', STAGING_APP_SECRET)
                         .update(buf)
                         .digest('hex');
 
