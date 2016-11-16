@@ -4,19 +4,34 @@ const
   bodyParser = require('body-parser'),
   crypto = require('crypto'),
   request = require('request'),
+  uuid = require('node-uuid'),
+  apiai = require('apiai'),
+  async = require('async'),
   express = require('express');
+var firebase = require('firebase');  
 
 var indianSL_letters = require('./hearing_impaired/indianSL_letters')
 var app = express();
+var apiAiService = apiai("81cc2b49f298485eaa3820a55071e422");
+var sessionIds = new Map();
 
 app.set('port', process.env.PORT || 5000);
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
+// Initialize Firebase
+// TODO: Replace with your project's customized code snippet
+var firebaseMain = firebase.initializeApp({
+  apiKey: "AIzaSyA2DgsiOMAY5GqICNs1oWp7Y2phXryVuiY",
+  authDomain: "starsearth-59af6.firebaseapp.com",
+  databaseURL: "https://starsearth-59af6.firebaseio.com",
+  storageBucket: "starsearth-59af6.appspot.com",
+});
+
 //Details for Cila
-//const APP_SECRET = "e72a4da3c3f17067c224f3d372a12e7f";
-//const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
-//const PAGE_ACCESS_TOKEN = "EAAW44q2oO0ABAMtYPDZCNh0DINSOfffzT6a3U7wGieMxPDGSxwzxX6w4Xz7TtQWrsKaqsZCWNzmmRBmoNDtosiC1lsNRVRLbsKM4eO4ZAxEdBTktURvyDqJm5YWY1O16fjgZCHs5k4SofZCMEZC0qbY8YDYI3xMjdAN8FpL2vlmQZDZD";
+const APP_SECRET = "e72a4da3c3f17067c224f3d372a12e7f";
+const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
+const PAGE_ACCESS_TOKEN = "EAAW44q2oO0ABALWAQjnN1rOxC8Ql1iJrcHASbGmCMp6HEZAGSV55GcSRnUimLouGMRazYRhddy8IPtrxqh4QrKs8nZCjgAvR1ZBH5B6wcfl2GFCFqFOXrQR44sLi1WPCHDFZAFyeEWn7hdOgdzSK45uZChOfsjUpyig3dyxnWZCwZDZD";
 
 //Details for StarsEarth - Test1
 //const APP_SECRET = "5570eee5bbd29459fe04f1cf986ab3a8";
@@ -24,9 +39,9 @@ app.use(express.static('public'));
 //const PAGE_ACCESS_TOKEN = "EAADq7fMr0UUBAP3wfrRSpZBz00bXfJq2IWsE0F3R3nQblyrd8D1iX3vuTZCkSpxhb8sMZBmYjaneUX4dD5azd9bsZCIL00n7WDVDf265Bw9PgBx00oZAyJ3azaYxtTns3u2vWsgfUfUOZCElKSpIZBMqgwXXcDJxJ4UeoKUDf4lxwZDZD";
 
 //Details for StarsEarth
-const APP_SECRET = "259832f8c93e80eb813dabdd8e1861bc";
-const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
-const PAGE_ACCESS_TOKEN = "EAADqtwIQ3B0BAMZA1s4xvIn0tToKci9B43JhMQXVzKpDAYGf5rTFotNaYZCfaPAdgDxP8Id2b9c9uqp0quYGzihJtZCIgVZABZCkLWniUz2lbE0xfuKPSub9LPCwOZASUgn1LCnidZASnkVkoMXoZATHauMWZBAnu6dFTX19NkZCFdNQZDZD";
+//const APP_SECRET = "259832f8c93e80eb813dabdd8e1861bc";
+//const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
+//const PAGE_ACCESS_TOKEN = "EAADqtwIQ3B0BAMZA1s4xvIn0tToKci9B43JhMQXVzKpDAYGf5rTFotNaYZCfaPAdgDxP8Id2b9c9uqp0quYGzihJtZCIgVZABZCkLWniUz2lbE0xfuKPSub9LPCwOZASUgn1LCnidZASnkVkoMXoZATHauMWZBAnu6dFTX19NkZCFdNQZDZD";
 
 
 
@@ -40,7 +55,9 @@ const DEFAULT_MESSAGE = "Enter a letter to get its Indian Sign Language";
 
 app.get('/', function(req, res) {
   //res.render('pages/index');
-  res.send('hello world, I am a chat bot')
+  //res.send('hello world, I am a chat bot')
+  //res.sendfile('./views/pages/index.html');
+  res.sendFile(__dirname + '/views/pages/index.html');
 });
 
 /*
@@ -102,40 +119,22 @@ app.post('/webhook/', function (req, res) {
   }
 });
 
-app.post('/staging_webhook/', function (req, res) {
-  var data = req.body;
 
-  // Make sure this is a page subscription
-  if (data.object == 'page') {
-    // Iterate over each entry
-    // There may be multiple if batched
-    data.entry.forEach(function(pageEntry) {
-      var pageID = pageEntry.id;
-      var timeOfEvent = pageEntry.time;
+function isDefined(obj) {
+    if (typeof obj == 'undefined') {
+        return false;
+    }
 
-      // Iterate over each messaging event
-      pageEntry.messaging.forEach(function(messagingEvent) {
-        if (messagingEvent.optin) {
-          receivedAuthentication(messagingEvent);
-        } else if (messagingEvent.message) {
-          receivedMessage(messagingEvent);
-        } else if (messagingEvent.delivery) {
-          receivedDeliveryConfirmation(messagingEvent);
-        } else if (messagingEvent.postback) {
-          receivedPostback(messagingEvent);
-        } else {
-          console.log("Webhook received unknown messagingEvent: ", messagingEvent);
-        }
-      });
-    });
+    if (!obj) {
+        return false;
+    }
 
-    // Assume all went well.
-    //
-    // You must send back a 200, within 20 seconds, to let us know you've 
-    // successfully received the callback. Otherwise, the request will time out.
-    res.sendStatus(200);
-  }
-});
+    return obj != null;
+}
+
+function isEmpty(obj) {
+    return obj == "";
+}
 
 /*
  * Verify that the callback came from Facebook. Using the App Secret from 
@@ -251,12 +250,69 @@ function receivedMessage(event) {
   var messageText = message.text;
   var messageAttachments = message.attachments;
 
+  if (!sessionIds.has(senderID)) {
+      sessionIds.set(senderID, uuid.v1());
+  }
+
   if (messageText) {
+
+    var request = apiAiService.textRequest(messageText,
+            {
+                sessionId: sessionIds.get(senderID)
+            });
+ 
+    request.on('response', function(response) {
+      console.log("API.AI RESPONSE "+JSON.stringify(response));
+      if (isDefined(response.result)) {
+        var responseText = response.result.fulfillment.speech;
+        //var responseData = response.result.fulfillment.data;
+        var action = response.result.action;
+        var quickReplies = getQuickReplies(response); 
+        
+        if (isDefined(action) && action == "getSignLanguage") {
+          if (isDefined(responseText)) {
+            if (isDefined(quickReplies) && quickReplies.length > 0) {
+              sendTextMessageWithQuickReplies(senderID, responseText, quickReplies);
+            }
+            else {
+              sendTextMessage(senderID, responseText);
+            }
+          }
+          var actionIncomplete = response.result.actionIncomplete;
+          var parameters = response.result.parameters;
+          if (!actionIncomplete && !isEmpty(parameters.islSign)) {
+            var islSign = parameters.islSign;
+            var type = parameters.signLanguageType;
+            if (!isDefined(type) || isEmpty(type)) {
+              type = "ISL";
+            }
+            islSign = islSign.toUpperCase();
+            getSignLanguage(senderID, islSign, type);
+          }
+          
+        } else if (isDefined(responseText)) {
+          if (isDefined(quickReplies) && quickReplies.length > 0) {
+            sendTextMessageWithQuickReplies(senderID, responseText, quickReplies);
+          }
+          else {
+            sendTextMessage(senderID, responseText);
+          }
+        }
+      }
+      
+    });
+     
+    request.on('error', function(error) {
+        console.log("API.AI ERROR "+error);
+        //sendTextMessage(senderID, error);
+    });
+     
+    request.end();  
 
     // If we receive a text message, check to see if it matches any special
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
-    messageText = messageText.toLowerCase()
+    /*messageText = messageText.toLowerCase()
     if (messageText.length == 1) {
           var description = indianSL_letters.letterToISLDescription(messageText);
           sendTextMessage(senderID, description)
@@ -265,7 +321,7 @@ function receivedMessage(event) {
     }
     else {
       sendTextMessage(senderID, DEFAULT_MESSAGE)
-    }
+    }   */
    /* switch (messageText) {
       case 'image':
         sendImageMessage(senderID);
@@ -369,24 +425,60 @@ function sendImageMessage(recipientId, imageURL) {
  *
  */
 function sendTextMessage(recipientId, messageText) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: messageText
-    }
-  };
 
-  callSendAPI(messageData);
+  var splittedText = splitResponse(messageText);
+
+  //async.eachSeries(splittedText, (textPart, callback) => {
+    for(var i = 0; i < splittedText.length; i++) {
+        var messageData = {
+          recipient: {
+            id: recipientId
+          },
+          message: {
+            text: splittedText[i]
+          }
+        };
+
+        callSendAPI(messageData);
+    }        
+  //});
+  
 }
 
 /*
  * Send a text message using the Send API.
  *
  */
-function sendTextMessage(recipientId, messageText, quickReplies) {
-  var messageData = {
+function sendTextMessageWithQuickReplies(recipientId, messageText, quickReplies) {
+  var mQuickReplies = [];
+  for(var i=0; i < quickReplies.length; i++) {
+    mQuickReplies.push({
+      content_type : "text",
+      title : quickReplies[i],
+      payload : quickReplies[i]
+    });
+  }
+
+  var splittedText = splitResponse(messageText);
+
+  //async.eachSeries(splittedText, (textPart, callback) => {
+    for(var i = 0; i < splittedText.length; i++) {
+        var messageData = {
+          recipient: {
+            id: recipientId
+          },
+          message: {
+            text: splittedText[i], //messageText
+            quick_replies: mQuickReplies
+          }
+        };
+
+        callSendAPI(messageData);
+    }        
+  //});
+
+
+ /* var messageData = {
     recipient: {
       id: recipientId
     },
@@ -396,7 +488,7 @@ function sendTextMessage(recipientId, messageText, quickReplies) {
     }
   };
 
-  callSendAPI(messageData);
+  callSendAPI(messageData); */
 }
 
 /*
@@ -572,10 +664,96 @@ function callSendAPI(messageData) {
         messageId, recipientId);
     } else {
       console.error("Unable to send message.");
-      console.error(response);
       console.error(error);
+      console.error(response);
     }
   });  
+}
+
+
+/* Firebase
+*
+*
+*/
+function showDescription(senderID, item, type) {
+        var matchFound = false;
+        var ref = firebaseMain.database().ref("SignLanguage").orderByChild("item").equalTo(item);
+           /* ref.on('child_added', function(data) {
+              console.log("Got data: " + data.val().item);
+              sendTextMessage(senderID, data.val().description);
+            }); */
+            ref.once('value', function(snapshot) {
+              snapshot.forEach(function(childSnapshot) {
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+                if (childData.type == type) {
+                    sendTextMessage(senderID, childData.description);
+                    sendImageMessage(senderID, "https://firebasestorage.googleapis.com/v0/b/starsearth-59af6.appspot.com/o/images%2F"+item+"_"+type+".png?alt=media&token=e914aa03-caa2-4bba-9084-9ab8a330f6de");
+                    matchFound = true;
+                }
+              });
+              if (!matchFound) {
+                sendTextMessage(senderID, "Sorry, we do not have the "+type+" for this");
+              }
+            });
+    }
+
+    function showImage(senderID, path, fileName) {
+      var storage = firebaseMain.storage();
+      var storageRef = storage.ref(path + fileName);
+      storageRef.getDownloadURL().then(function(url) {
+        console.log('successfully got file');
+        sendImageMessage(senderID, url);
+      }).catch(function(error) {
+        switch (error.code) {
+          case 'storage/object_not_found':
+            console.log("file does not exist");
+            break;
+
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            console.log("Storage unauthorized");
+            break;
+
+          case 'storage/canceled':
+            // User canceled the upload
+            console.log("user upload canceled");
+            break;
+
+          case 'storage/unknown':
+            // Unknown error occurred, inspect the server response
+            console.log("unknown error");
+            break;
+        }
+        return null;
+      });
+  } 
+
+function getSignLanguage(senderID, item, type) {
+  showDescription(senderID, item, type);
+  var imagePath = "images/";
+  var fileName = item + "_" + type + ".png";
+  //showImage(senderID, imagePath, fileName);
+}
+
+
+//Will always return an array
+function splitResponse(str) {
+  var result = [];
+  if (str.length <= 320) {
+      result.push(str);
+      return result;
+  }
+
+  return str.match(/(.|[\r\n]){1,300}/g);
+}
+
+function getQuickReplies(response) {
+  var messages = response.result.fulfillment.messages;
+  if (isDefined(messages) && messages.length > 1) {
+    var quickReplies = messages[1].replies;
+    return quickReplies;
+  }
 }
 
 

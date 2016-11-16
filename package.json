@@ -10,12 +10,13 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "async": "^2.1.2",
     "body-parser": "^1.15.0",
     "ejs": "2.4.1",
     "express": "4.13.3",
-    "request": "^2.72.0",
+    "firebase": "^3.6.0",
     "mongodb": "^2.0.0",
-    "firebase": "^2.0.0"
+    "request": "^2.72.0"
   },
   "repository": {
     "type": "git",
