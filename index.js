@@ -9,6 +9,7 @@ const
   async = require('async'),
   express = require('express');
 var firebase = require('firebase');  
+ 
 
 var indianSL_letters = require('./hearing_impaired/indianSL_letters')
 var app = express();
@@ -29,9 +30,9 @@ var firebaseMain = firebase.initializeApp({
 });
 
 //Details for Cila
-//const APP_SECRET = "e72a4da3c3f17067c224f3d372a12e7f";
+//const APP_SECRET = "cd9ca339c36289731f4ab3d8a6631576";
 //const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
-//const PAGE_ACCESS_TOKEN = "EAAW44q2oO0ABALWAQjnN1rOxC8Ql1iJrcHASbGmCMp6HEZAGSV55GcSRnUimLouGMRazYRhddy8IPtrxqh4QrKs8nZCjgAvR1ZBH5B6wcfl2GFCFqFOXrQR44sLi1WPCHDFZAFyeEWn7hdOgdzSK45uZChOfsjUpyig3dyxnWZCwZDZD";
+//const PAGE_ACCESS_TOKEN = "EAAFkhQecIcgBAGQz2qTUYD3y3vItB8WhSsZCYslVFjmQ5tDBm2kiDDmdbwNPrrGoIWbZBBEFrQMDlPgpOirKFiu4rid0auH22aPHKWHRXoyjNCwWQxn8bC8yzjyAk7GSZCeag1CyZCfkzKGfIx5VpJgwWyCgG14Pnc638dwC3QZDZD";
 
 //Details for StarsEarth - Test1
 //const APP_SECRET = "5570eee5bbd29459fe04f1cf986ab3a8";
@@ -270,25 +271,26 @@ function receivedMessage(event) {
         var quickReplies = getQuickReplies(response); 
         
         if (isDefined(action) && action == "getSignLanguage") {
-          if (isDefined(responseText)) {
-            if (isDefined(quickReplies) && quickReplies.length > 0) {
-              sendTextMessageWithQuickReplies(senderID, responseText, quickReplies);
-            }
-            else {
-              sendTextMessage(senderID, responseText);
-            }
-          }
-          var actionIncomplete = response.result.actionIncomplete;
-          var parameters = response.result.parameters;
-          if (!actionIncomplete && !isEmpty(parameters.islSign)) {
-            var islSign = parameters.islSign;
-            var type = parameters.signLanguageType;
-            if (!isDefined(type) || isEmpty(type)) {
-              type = "ISL";
-            }
-            islSign = islSign.toUpperCase();
-            getSignLanguage(senderID, islSign, type);
-          }
+			var actionIncomplete = response.result.actionIncomplete;
+	          var parameters = response.result.parameters;
+	          if (!actionIncomplete && !isEmpty(parameters.islSign)) {
+	            var islSign = parameters.islSign;
+	            var type = parameters.signLanguageType;
+	            if (!isDefined(type) || isEmpty(type)) {
+	              type = "ISL";
+	            }
+	            islSign = islSign.toUpperCase();
+	            getSignLanguage(senderID, islSign, type);
+	          }
+
+          	else if (isDefined(responseText)) {
+            	if (isDefined(quickReplies) && quickReplies.length > 0) {
+              		sendTextMessageWithQuickReplies(senderID, responseText, quickReplies);
+            	}
+            	else {
+              		sendTextMessage(senderID, responseText);
+            	}
+          	}
           
         } else if (isDefined(responseText)) {
           if (isDefined(quickReplies) && quickReplies.length > 0) {
@@ -326,19 +328,15 @@ function receivedMessage(event) {
       case 'image':
         sendImageMessage(senderID);
         break;
-
       case 'button':
         sendButtonMessage(senderID);
         break;
-
       case 'generic':
         sendGenericMessage(senderID);
         break;
-
       case 'receipt':
         sendReceiptMessage(senderID);
         break;
-
       default:
         sendTextMessage(senderID, DEFAULT_MESSAGE);
     } */
@@ -487,7 +485,6 @@ function sendTextMessageWithQuickReplies(recipientId, messageText, quickReplies)
       quick_replies: quickReplies,
     }
   };
-
   callSendAPI(messageData); */
 }
 
