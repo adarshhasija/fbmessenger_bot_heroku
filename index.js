@@ -9,12 +9,15 @@ const
   async = require('async'),
   express = require('express');
 var firebase = require('firebase');  
- 
+
+const DIALOGFLOW_SE_DEV = "3a66c23a26fb476aa986e74e237aff09";
+const DIALOGFLOW_SE_PROD = "81cc2b49f298485eaa3820a55071e422";
 
 var indianSL_letters = require('./hearing_impaired/indianSL_letters')
 var app = express();
-var apiAiService = apiai("81cc2b49f298485eaa3820a55071e422");
+var apiAiService = apiai(DIALOGFLOW_SE_PROD);
 var sessionIds = new Map();
+
 
 app.set('port', process.env.PORT || 5000);
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
@@ -30,9 +33,9 @@ var firebaseMain = firebase.initializeApp({
 });
 
 //Details for Cila
-const APP_SECRET = "cd9ca339c36289731f4ab3d8a6631576";
-const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
-const PAGE_ACCESS_TOKEN = "EAAFkhQecIcgBAGQz2qTUYD3y3vItB8WhSsZCYslVFjmQ5tDBm2kiDDmdbwNPrrGoIWbZBBEFrQMDlPgpOirKFiu4rid0auH22aPHKWHRXoyjNCwWQxn8bC8yzjyAk7GSZCeag1CyZCfkzKGfIx5VpJgwWyCgG14Pnc638dwC3QZDZD";
+//const APP_SECRET = "cd9ca339c36289731f4ab3d8a6631576";
+//const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
+//const PAGE_ACCESS_TOKEN = "EAAFkhQecIcgBAGQz2qTUYD3y3vItB8WhSsZCYslVFjmQ5tDBm2kiDDmdbwNPrrGoIWbZBBEFrQMDlPgpOirKFiu4rid0auH22aPHKWHRXoyjNCwWQxn8bC8yzjyAk7GSZCeag1CyZCfkzKGfIx5VpJgwWyCgG14Pnc638dwC3QZDZD";
 
 //Details for StarsEarth - Test1
 //const APP_SECRET = "5570eee5bbd29459fe04f1cf986ab3a8";
@@ -40,9 +43,9 @@ const PAGE_ACCESS_TOKEN = "EAAFkhQecIcgBAGQz2qTUYD3y3vItB8WhSsZCYslVFjmQ5tDBm2ki
 //const PAGE_ACCESS_TOKEN = "EAADq7fMr0UUBAP3wfrRSpZBz00bXfJq2IWsE0F3R3nQblyrd8D1iX3vuTZCkSpxhb8sMZBmYjaneUX4dD5azd9bsZCIL00n7WDVDf265Bw9PgBx00oZAyJ3azaYxtTns3u2vWsgfUfUOZCElKSpIZBMqgwXXcDJxJ4UeoKUDf4lxwZDZD";
 
 //Details for StarsEarth
-//const APP_SECRET = "259832f8c93e80eb813dabdd8e1861bc";
-//const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
-//const PAGE_ACCESS_TOKEN = "EAADqtwIQ3B0BAMZA1s4xvIn0tToKci9B43JhMQXVzKpDAYGf5rTFotNaYZCfaPAdgDxP8Id2b9c9uqp0quYGzihJtZCIgVZABZCkLWniUz2lbE0xfuKPSub9LPCwOZASUgn1LCnidZASnkVkoMXoZATHauMWZBAnu6dFTX19NkZCFdNQZDZD";
+const APP_SECRET = "259832f8c93e80eb813dabdd8e1861bc";
+const VALIDATION_TOKEN = "SPECIAL_NEEDS_BOT";
+const PAGE_ACCESS_TOKEN = "EAADqtwIQ3B0BAMZA1s4xvIn0tToKci9B43JhMQXVzKpDAYGf5rTFotNaYZCfaPAdgDxP8Id2b9c9uqp0quYGzihJtZCIgVZABZCkLWniUz2lbE0xfuKPSub9LPCwOZASUgn1LCnidZASnkVkoMXoZATHauMWZBAnu6dFTX19NkZCFdNQZDZD";
 
 
 
@@ -267,8 +270,14 @@ function receivedMessage(event) {
       if (isDefined(response.result)) {
         var responseText = response.result.fulfillment.speech;
         //var responseData = response.result.fulfillment.data;
+        var messages = response.result.fulfillment.messages;
+        for(var i = 0; i < messages.length; i++) {
+          if(messages[i].type == 0 && messages[i].platform == "facebook") {
+            responseText = messages[i].speech;
+          }
+        }
         var action = response.result.action;
-        var quickReplies = getQuickReplies(response); 
+        var quickReplies = getQuickReplies(response);
         
         if (isDefined(action) && action == "getSignLanguage") {
 			var actionIncomplete = response.result.actionIncomplete;
@@ -280,7 +289,7 @@ function receivedMessage(event) {
 	              type = "ISL";
 	            }
 	            islSign = islSign.toUpperCase();
-	            getSignLanguage(senderID, islSign, type);
+              getSignLanguage(senderID, islSign, type);
 	          }
 
           	else if (isDefined(responseText)) {
@@ -295,6 +304,10 @@ function receivedMessage(event) {
         } else if (isDefined(responseText)) {
           if (isDefined(quickReplies) && quickReplies.length > 0) {
             sendTextMessageWithQuickReplies(senderID, responseText, quickReplies);
+          }
+          else if(action == "input.unknown") {
+            //sendTextMessage(senderID, responseText);
+            callHandOverProtocol(senderID, "DUMMY TEXT");
           }
           else {
             sendTextMessage(senderID, responseText);
@@ -429,6 +442,7 @@ function sendTextMessage(recipientId, messageText) {
   //async.eachSeries(splittedText, (textPart, callback) => {
     for(var i = 0; i < splittedText.length; i++) {
         var messageData = {
+          messaging_type: "RESPONSE",
           recipient: {
             id: recipientId
           },
@@ -439,6 +453,32 @@ function sendTextMessage(recipientId, messageText) {
 
         callSendAPI(messageData);
     }        
+  //});
+  
+}
+
+/*
+ * Handover to the Facebook page using the Handover Protocol API.
+ *
+ */
+function callHandOverProtocol(recipientId, messageText) {
+
+  var messageData = {
+          recipient: {
+            id: recipientId
+          },
+          target_app_id: 263902037430900,
+          metadata: "String to pass to secondary receiver app"
+        };
+
+        callHandoverProtocolAPI(messageData);
+
+  //var splittedText = splitResponse(messageText);
+
+  //async.eachSeries(splittedText, (textPart, callback) => {
+  /*  for(var i = 0; i < splittedText.length; i++) {
+        
+    } */        
   //});
   
 }
@@ -661,6 +701,33 @@ function callSendAPI(messageData) {
         messageId, recipientId);
     } else {
       console.error("Unable to send message.");
+      console.error(error);
+      console.error(response);
+    }
+  });  
+}
+
+
+/*
+ * Call the Handover API. The message data goes in the body.
+ *
+ */
+function callHandoverProtocolAPI(messageData) {
+  request({
+    uri: 'https://graph.facebook.com/v2.6/me/pass_thread_control',
+    qs: { access_token: PAGE_ACCESS_TOKEN },
+    method: 'POST',
+    json: messageData
+
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var recipientId = body.recipient_id;
+      var messageId = body.message_id;
+
+      console.log("Successfully handover: passed thread control to page", 
+        body);
+    } else {
+      console.error("Handover failed");
       console.error(error);
       console.error(response);
     }
