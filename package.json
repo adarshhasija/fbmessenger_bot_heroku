@@ -16,6 +16,7 @@
     "express": "^4.16.3",
     "firebase": "^5.1.0",
     "mongodb": "^2.0.0",
+    "node-pre-gyp": "^0.10.2",
     "node-uuid": "^1.4.8",
     "request": "^2.87.0"
   },
