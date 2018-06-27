@@ -6,7 +6,6 @@ const
   request = require('request'),
   uuid = require('node-uuid'),
   apiai = require('apiai'),
-  async = require('async'),
   express = require('express');
 var firebase = require('firebase');  
 
@@ -301,7 +300,16 @@ function receivedMessage(event) {
             	}
           	}
           
-        } else if (isDefined(responseText)) {
+        } else if(isDefined(action) && action == "skill.lookup") {
+            var actionIncomplete = response.result.actionIncomplete;
+            var parameters = response.result.parameters;
+            if (!actionIncomplete && !isEmpty(parameters.skill)) {
+	            var skill = parameters.skill;
+	            skill = skill.toLowerCase();
+              showPeopleWithSkill(senderID, skill);
+	          }
+        } 
+        else if (isDefined(responseText)) {
           if (isDefined(quickReplies) && quickReplies.length > 0) {
             sendTextMessageWithQuickReplies(senderID, responseText, quickReplies);
           }
@@ -792,6 +800,29 @@ function showDescription(senderID, item, type) {
         return null;
       });
   } 
+
+  function showPeopleWithSkill(senderID, skill) {
+    var matchFound = false;
+    var ref = firebaseMain.database().ref("skills").orderByChild("skill").equalTo(skill);
+       /* ref.on('child_added', function(data) {
+          console.log("Got data: " + data.val().item);
+          sendTextMessage(senderID, data.val().description);
+        }); */
+        ref.once('value', function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+            var childKey = childSnapshot.key;
+            var childData = childSnapshot.val();
+            //if (childData.skill == skill) {
+                sendTextMessage(senderID, childData.firstName + " " + childData.lastName + " " + childData.email);
+                matchFound = true;
+            //}
+          });
+          if (!matchFound) {
+            sendTextMessage(senderID, "Sorry, we could not find anyone with this skill");
+          }
+        });
+}
+
 
 function getSignLanguage(senderID, item, type) {
   showDescription(senderID, item, type);
